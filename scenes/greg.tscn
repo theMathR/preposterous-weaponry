@@ -1,0 +1,217 @@
+[gd_scene load_steps=27 format=3 uid="uid://dk5jd1u74hjl"]
+
+[ext_resource type="Script" path="res://scenes/greg.gd" id="1_0qswn"]
+[ext_resource type="Texture2D" uid="uid://dm01qvesroay4" path="res://assets/greg/body.png" id="1_545s2"]
+[ext_resource type="Texture2D" uid="uid://ctbwhxjlhs8uf" path="res://assets/greg/armor_back.png" id="2_kw2sw"]
+[ext_resource type="Texture2D" uid="uid://cv5eb6wn1osih" path="res://assets/greg/head.png" id="2_lpor8"]
+[ext_resource type="Texture2D" uid="uid://cyt7x4a4ajos" path="res://assets/greg/springs.png" id="5_suhpd"]
+[ext_resource type="Script" path="res://scenes/spring.gd" id="7_r0prd"]
+[ext_resource type="Texture2D" uid="uid://cmtgw15n4d5v7" path="res://assets/greg/armor.png" id="7_xtaie"]
+[ext_resource type="Texture2D" uid="uid://dt834eaprdbc" path="res://assets/greg/feet.png" id="8_ruepj"]
+[ext_resource type="Texture2D" uid="uid://bw70uurxwrin4" path="res://assets/greg/gun.png" id="9_eqamy"]
+[ext_resource type="Texture2D" uid="uid://4lu1vsoywnj2" path="res://assets/greg/hands.png" id="10_0y1mf"]
+
+[sub_resource type="Animation" id="Animation_q8no7"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(2.73208, 4.14106, 3.36358),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4, -1), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/Body/Head:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1.36604, 3.13834, 3.36359),
+"update": 0,
+"values": [Vector2(11, -75), Vector2(3, -71), Vector2(11, -75)]
+}
+
+[sub_resource type="Animation" id="Animation_hkhrw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/Body:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/Body/Head:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(11, -75)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s51ni"]
+_data = {
+"RESET": SubResource("Animation_hkhrw"),
+"idle": SubResource("Animation_q8no7")
+}
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_dbefc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oo7s8"]
+radius = 95.0
+height = 312.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dhn3u"]
+atlas = ExtResource("2_lpor8")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7014x"]
+atlas = ExtResource("2_lpor8")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nof6m"]
+atlas = ExtResource("2_lpor8")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jn6y5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dhn3u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7014x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nof6m")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4dm1"]
+atlas = ExtResource("5_suhpd")
+region = Rect2(14, 8, 53, 123)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82l85"]
+atlas = ExtResource("5_suhpd")
+region = Rect2(73, 9, 46, 122)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nx8u4"]
+atlas = ExtResource("7_xtaie")
+region = Rect2(39, 40, 211, 271)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj6vm"]
+atlas = ExtResource("8_ruepj")
+region = Rect2(15, 5, 106, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5xtx"]
+atlas = ExtResource("8_ruepj")
+region = Rect2(141, 4, 111, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_go6kl"]
+atlas = ExtResource("10_0y1mf")
+region = Rect2(92, 5, 51, 54)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b51h5"]
+atlas = ExtResource("10_0y1mf")
+region = Rect2(11, 5, 55, 49)
+
+[node name="Greg" type="CharacterBody2D"]
+texture_filter = 1
+script = ExtResource("1_0qswn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_s51ni")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_dbefc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -158)
+shape = SubResource("CapsuleShape2D_oo7s8")
+
+[node name="Sprites" type="Node2D" parent="."]
+position = Vector2(0, -138)
+
+[node name="ArmorBack" type="Sprite2D" parent="Sprites"]
+position = Vector2(4, -7)
+texture = ExtResource("2_kw2sw")
+
+[node name="Body" type="Sprite2D" parent="Sprites"]
+texture = ExtResource("1_545s2")
+
+[node name="Head" type="AnimatedSprite2D" parent="Sprites/Body"]
+position = Vector2(11, -75)
+sprite_frames = SubResource("SpriteFrames_jn6y5")
+
+[node name="Armor" type="Node2D" parent="Sprites"]
+
+[node name="SpringA" type="Sprite2D" parent="Sprites/Armor" node_paths=PackedStringArray("to")]
+position = Vector2(-17, 44)
+rotation = 0.378142
+scale = Vector2(1, 0.638613)
+texture = SubResource("AtlasTexture_x4dm1")
+offset = Vector2(0, 50)
+script = ExtResource("7_r0prd")
+to = NodePath("../../FootA")
+
+[node name="SpringB" type="Sprite2D" parent="Sprites/Armor" node_paths=PackedStringArray("to")]
+position = Vector2(61, 78)
+rotation = -0.858439
+scale = Vector2(1, 0.476539)
+texture = SubResource("AtlasTexture_82l85")
+offset = Vector2(0, 61)
+script = ExtResource("7_r0prd")
+to = NodePath("../../FootB")
+
+[node name="Armor" type="Sprite2D" parent="Sprites/Armor"]
+position = Vector2(5, -39)
+texture = SubResource("AtlasTexture_nx8u4")
+
+[node name="FootA" type="Sprite2D" parent="Sprites"]
+position = Vector2(-46, 117)
+texture = SubResource("AtlasTexture_bj6vm")
+offset = Vector2(25, 0)
+
+[node name="FootB" type="Sprite2D" parent="Sprites"]
+position = Vector2(105, 116)
+texture = SubResource("AtlasTexture_l5xtx")
+
+[node name="Gun" type="Sprite2D" parent="Sprites"]
+position = Vector2(74, 24)
+texture = ExtResource("9_eqamy")
+
+[node name="HandB" type="Sprite2D" parent="Sprites/Gun"]
+position = Vector2(39, 39)
+texture = SubResource("AtlasTexture_go6kl")
+
+[node name="HandA" type="Sprite2D" parent="Sprites/Gun"]
+position = Vector2(-117, 37)
+texture = SubResource("AtlasTexture_b51h5")
