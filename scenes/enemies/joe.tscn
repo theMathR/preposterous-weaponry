@@ -1,0 +1,281 @@
+[gd_scene load_steps=19 format=3 uid="uid://bjao8wrwrikla"]
+
+[ext_resource type="Script" path="res://scripts/enemies/joe.gd" id="1_tf57d"]
+[ext_resource type="Texture2D" uid="uid://c52n2u1wjds2" path="res://assets/joe/heads.png" id="2_sx7ik"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://b41jkotvq3bis" path="res://scenes/animationtree.tres" id="3_5sp2r"]
+[ext_resource type="Texture2D" uid="uid://b3hcerw6o4nsd" path="res://assets/joe/body.png" id="3_vilj4"]
+[ext_resource type="Texture2D" uid="uid://pfhfx64m6rog" path="res://assets/joe/feet.png" id="4_uvdiv"]
+[ext_resource type="Texture2D" uid="uid://clo536kwkr2rd" path="res://assets/joe/gun.png" id="5_88t0q"]
+[ext_resource type="Texture2D" uid="uid://bvdkobcq2kj2g" path="res://assets/joe/dead.png" id="6_a5sbn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yhw5o"]
+atlas = ExtResource("3_vilj4")
+region = Rect2(0, 0, 135, 91)
+
+[sub_resource type="Animation" id="Animation_ex2oe"]
+length = 0.001
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/Gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-40, -4)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/Head:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -97)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/Body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sprites/Body:texture")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("AtlasTexture_yhw5o")]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sprites/Feet/FootA:scale")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_ijovb"]
+resource_name = "frontfacing"
+length = 0.01
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/Body:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("AtlasTexture_yhw5o")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/Feet/FootA:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4u88r"]
+resource_name = "idle"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprites/Gun:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.732043, 1.41421),
+"update": 0,
+"values": [Vector2(-40, -4), Vector2(-35, -8)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprites/Head:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(0.732043, 0.812252),
+"update": 0,
+"values": [Vector2(0, -97), Vector2(0, -86)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprites/Body:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1.1487, 1.7411),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(1, -5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_cecu0"]
+_data = {
+"RESET": SubResource("Animation_ex2oe"),
+"frontfacing": SubResource("Animation_ijovb"),
+"idle": SubResource("Animation_4u88r")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pa115"]
+radius = 60.0
+height = 222.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_64uf6"]
+resource_local_to_scene = true
+atlas = ExtResource("2_sx7ik")
+region = Rect2(0, 0, 200, 200)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f8chl"]
+atlas = ExtResource("4_uvdiv")
+region = Rect2(0, 5, 117, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wgc7"]
+atlas = ExtResource("4_uvdiv")
+region = Rect2(284, 0, 112, 53)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6y14t"]
+atlas = ExtResource("4_uvdiv")
+region = Rect2(141, 1, 123, 54)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2rcl5"]
+particle_flag_disable_z = true
+direction = Vector3(0, -1, 0)
+spread = 15.0
+initial_velocity_min = 2000.0
+initial_velocity_max = 4000.0
+gravity = Vector3(0, 9800, 0)
+
+[node name="Joe" type="CharacterBody2D" groups=["enemies"]]
+texture_filter = 1
+floor_constant_speed = true
+floor_snap_length = 50.0
+script = ExtResource("1_tf57d")
+max_hp = 7
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_cecu0")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = ExtResource("3_5sp2r")
+advance_expression_base_node = NodePath("..")
+anim_player = NodePath("../AnimationPlayer")
+parameters/add_frontfacing/add_amount = 1.0
+parameters/is_frontfacing/current_state = "false"
+parameters/is_frontfacing/transition_request = ""
+parameters/is_frontfacing/current_index = 0
+parameters/movement/land_walk/direction/current_state = ""
+parameters/movement/land_walk/direction/transition_request = ""
+parameters/movement/land_walk/direction/current_index = -1
+parameters/movement/land_walk/land_walk/blend_amount = 0
+parameters/movement/walk/direction/current_state = ""
+parameters/movement/walk/direction/transition_request = ""
+parameters/movement/walk/direction/current_index = -1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -41)
+shape = SubResource("CapsuleShape2D_pa115")
+
+[node name="Sprites" type="Node2D" parent="."]
+use_parent_material = true
+
+[node name="Head" type="Sprite2D" parent="Sprites"]
+use_parent_material = true
+position = Vector2(0, -97)
+texture = SubResource("AtlasTexture_64uf6")
+
+[node name="Body" type="Sprite2D" parent="Sprites"]
+use_parent_material = true
+texture = SubResource("AtlasTexture_yhw5o")
+
+[node name="Gun" type="Node2D" parent="Sprites"]
+use_parent_material = true
+position = Vector2(-40, -4)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Gun"]
+use_parent_material = true
+texture = ExtResource("5_88t0q")
+offset = Vector2(70, 0)
+
+[node name="Feet" type="Node2D" parent="Sprites"]
+use_parent_material = true
+position = Vector2(0, 72)
+
+[node name="FootA" type="Node2D" parent="Sprites/Feet"]
+position = Vector2(-73, -24)
+
+[node name="Sprite2D" type="Sprite2D" parent="Sprites/Feet/FootA"]
+use_parent_material = true
+position = Vector2(12, 0)
+texture = SubResource("AtlasTexture_f8chl")
+
+[node name="FootB" type="Sprite2D" parent="Sprites/Feet"]
+use_parent_material = true
+position = Vector2(82, -24)
+texture = SubResource("AtlasTexture_8wgc7")
+
+[node name="FootC" type="Sprite2D" parent="Sprites/Feet"]
+use_parent_material = true
+position = Vector2(6, -25)
+texture = SubResource("AtlasTexture_6y14t")
+
+[node name="DeathParticles" type="GPUParticles2D" parent="."]
+process_mode = 3
+position = Vector2(0, -179)
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_2rcl5")
+texture = ExtResource("6_a5sbn")
+lifetime = 5.0
+one_shot = true
+
+[node name="BlinkTimer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[node name="HeadAnimTimer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[connection signal="finished" from="DeathParticles" to="." method="_on_death_particles_finished"]
+[connection signal="timeout" from="BlinkTimer" to="." method="_on_blink_timer_timeout"]
+[connection signal="timeout" from="HeadAnimTimer" to="." method="_on_head_anim_timer_timeout"]
