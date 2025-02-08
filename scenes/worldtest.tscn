@@ -1,11 +1,14 @@
-[gd_scene load_steps=10 format=4 uid="uid://d1mse6mopmusv"]
+[gd_scene load_steps=19 format=4 uid="uid://d1mse6mopmusv"]
 
 [ext_resource type="Texture2D" uid="uid://dqnc3h83shsiw" path="res://assets/tilemaps/test.png" id="1_s7ee8"]
 [ext_resource type="PackedScene" uid="uid://dk5jd1u74hjl" path="res://scenes/greg.tscn" id="2_1qkwt"]
 [ext_resource type="Shader" path="res://scripts/crate.gdshader" id="3_6en7a"]
 [ext_resource type="PackedScene" uid="uid://cm8o1j0uu0yqu" path="res://scenes/crate.tscn" id="3_r8v72"]
+[ext_resource type="PackedScene" uid="uid://du1i2h87r072t" path="res://scenes/upgrades/upgrade.tscn" id="4_2rfxt"]
 [ext_resource type="PackedScene" uid="uid://bjao8wrwrikla" path="res://scenes/enemies/joe.tscn" id="4_mr01q"]
+[ext_resource type="Texture2D" uid="uid://dxy820w6p1l5t" path="res://assets/upgrades/shotgun/icon.png" id="5_vhn3o"]
 [ext_resource type="PackedScene" uid="uid://xnt1sckefvoc" path="res://scenes/upgrades/shotgun.tscn" id="6_odpkq"]
+[ext_resource type="Shader" path="res://scripts/palette.gdshader" id="8_1s5dx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w0ecp"]
 texture = ExtResource("1_s7ee8")
@@ -28,6 +31,42 @@ sources/0 = SubResource("TileSetAtlasSource_w0ecp")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_orsmt"]
 shader = ExtResource("3_6en7a")
 shader_parameter/color = Color(1, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5p1ot"]
+resource_local_to_scene = true
+shader = ExtResource("8_1s5dx")
+shader_parameter/grayscale_color = Color(1, 1, 1, 1)
+shader_parameter/green_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ev4gw"]
+resource_local_to_scene = true
+shader = ExtResource("8_1s5dx")
+shader_parameter/grayscale_color = Color(1, 1, 1, 1)
+shader_parameter/green_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jcal1"]
+resource_local_to_scene = true
+shader = ExtResource("8_1s5dx")
+shader_parameter/grayscale_color = Color(1, 1, 1, 1)
+shader_parameter/green_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_slin4"]
+resource_local_to_scene = true
+shader = ExtResource("8_1s5dx")
+shader_parameter/grayscale_color = Color(1, 1, 1, 1)
+shader_parameter/green_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q3eus"]
+resource_local_to_scene = true
+shader = ExtResource("8_1s5dx")
+shader_parameter/grayscale_color = Color(1, 1, 1, 1)
+shader_parameter/green_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f0k5u"]
+resource_local_to_scene = true
+shader = ExtResource("8_1s5dx")
+shader_parameter/grayscale_color = Color(1, 1, 1, 1)
+shader_parameter/green_scale = 1.0
 
 [node name="World" type="Node2D"]
 texture_filter = 1
@@ -109,24 +148,43 @@ max_hp = 1
 
 [node name="Upgrades" type="Node2D" parent="."]
 
-[node name="Enemy" type="Node2D" parent="."]
+[node name="Upgrade" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(3968, -384)
+texture = ExtResource("5_vhn3o")
+upgrade = ExtResource("6_odpkq")
 
-[node name="Joe3" parent="Enemy" instance=ExtResource("4_mr01q")]
-position = Vector2(128, 128)
+[node name="Node2D" type="Node2D" parent="."]
 
-[node name="Joe2" parent="Enemy" instance=ExtResource("4_mr01q")]
-position = Vector2(128, -256)
+[node name="Joe" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_5p1ot")
+position = Vector2(-128, 384)
 
-[node name="Joe4" parent="Enemy" instance=ExtResource("4_mr01q")]
-position = Vector2(-128, -256)
+[node name="Joe2" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_ev4gw")
+position = Vector2(384, 256)
 
-[node name="Shotgun" parent="Enemy/Joe4" instance=ExtResource("6_odpkq")]
+[node name="Joe3" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_jcal1")
+position = Vector2(384, 0)
 
-[node name="Joe5" parent="Enemy" instance=ExtResource("4_mr01q")]
-position = Vector2(-384, -256)
+[node name="Joe5" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_slin4")
+position = Vector2(384, -512)
+
+[node name="Joe4" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_q3eus")
+position = Vector2(-128, 0)
+
+[node name="Joe6" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_f0k5u")
+position = Vector2(-128, -384)
+
+[node name="Joe7" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_f0k5u")
+position = Vector2(128, -384)
 
 [node name="Greg" parent="." instance=ExtResource("2_1qkwt")]
-position = Vector2(384, 384)
+position = Vector2(128, 384)
 
 [node name="Camera2D" type="Camera2D" parent="Greg"]
 position = Vector2(0, -130)

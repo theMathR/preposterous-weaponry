@@ -1,5 +1,9 @@
 extends GunPart
 
+func set_wielder(x):
+	super.set_wielder(x)
+	$RayCast2D.collision_mask = 2 if is_enemy else 4 # Set RayCast mask to shoot through other enemies
+
 func shoot():
 	if not $Cooldown.is_stopped(): return
 	$Cooldown.start()

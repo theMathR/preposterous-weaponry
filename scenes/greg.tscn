@@ -1,8 +1,11 @@
-[gd_scene load_steps=36 format=3 uid="uid://dk5jd1u74hjl"]
+[gd_scene load_steps=37 format=3 uid="uid://dk5jd1u74hjl"]
 
 [ext_resource type="Script" path="res://scripts/greg.gd" id="1_0qswn"]
 [ext_resource type="Texture2D" uid="uid://dm01qvesroay4" path="res://assets/greg/body.png" id="1_545s2"]
+[ext_resource type="Texture2D" uid="uid://3kht1v6k2ydj" path="res://assets/greg/death.png" id="2_0v7pw"]
 [ext_resource type="Texture2D" uid="uid://ctbwhxjlhs8uf" path="res://assets/greg/armor_back.png" id="2_kw2sw"]
+[ext_resource type="AudioStream" uid="uid://cv54aedkoynca" path="res://assets/greg/ground.mp3" id="3_i8orh"]
+[ext_resource type="AudioStream" uid="uid://byyleax3b0fm4" path="res://assets/greg/jump.mp3" id="3_qtrna"]
 [ext_resource type="Texture2D" uid="uid://dvdkcjnstajur" path="res://assets/greg/heads.png" id="4_47s0o"]
 [ext_resource type="AudioStream" uid="uid://bn4uonh0v73qr" path="res://assets/greg/step.mp3" id="4_c217s"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://b41jkotvq3bis" path="res://scenes/animationtree.tres" id="4_e5y2y"]
@@ -14,7 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://4lu1vsoywnj2" path="res://assets/greg/hands.png" id="10_0y1mf"]
 [ext_resource type="PackedScene" uid="uid://bkv54qk1lefm1" path="res://scenes/upgrades/barrel.tscn" id="11_mlvyw"]
 [ext_resource type="AudioStream" uid="uid://dns3c8jmpjnf8" path="res://assets/greg/hit.mp3" id="14_4os65"]
-[ext_resource type="Texture2D" uid="uid://3kht1v6k2ydj" path="res://assets/greg/death.png" id="15_0pla4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nx8u4"]
 atlas = ExtResource("7_xtaie")
@@ -221,18 +223,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [0.429812]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Sprites:position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(),
-"transitions": PackedFloat32Array(),
-"update": 0,
-"values": []
-}
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p383p"]
 atlas = ExtResource("7_xtaie")
@@ -384,6 +374,21 @@ tracks/3/keys = {
 "update": 0,
 "values": [0.736654]
 }
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("StepSound")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_qtrna")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/4/use_blend = false
 
 [sub_resource type="Animation" id="Animation_2lgog"]
 resource_name = "land"
@@ -472,6 +477,21 @@ tracks/6/keys = {
 "update": 0,
 "values": [Vector2(-11, -58), Vector2(-7.39898, -81.5959), Vector2(-7.39898, -81.5959)]
 }
+tracks/7/type = "audio"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("StepSound")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("3_i8orh")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/7/use_blend = false
 
 [sub_resource type="Animation" id="Animation_8s57s"]
 resource_name = "walk"
@@ -568,7 +588,7 @@ tracks/6/keys = {
 }],
 "times": PackedFloat32Array(0.2, 0.6)
 }
-tracks/6/use_blend = true
+tracks/6/use_blend = false
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_s51ni"]
 _data = {
@@ -616,24 +636,16 @@ region = Rect2(92, 5, 51, 54)
 atlas = ExtResource("10_0y1mf")
 region = Rect2(11, 5, 55, 49)
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_4uuud"]
-particle_flag_disable_z = true
-angle_min = -300.0
-angle_max = 300.0
-direction = Vector3(0, -1, 0)
-spread = 15.0
-initial_velocity_min = 2000.0
-initial_velocity_max = 4000.0
-gravity = Vector3(0, 9800, 0)
-
 [node name="Greg" type="CharacterBody2D"]
 texture_filter = 1
+collision_layer = 3
 floor_stop_on_slope = false
 floor_constant_speed = true
 floor_snap_length = 50.0
 safe_margin = 2.0
 script = ExtResource("1_0qswn")
-max_hp = 2
+max_hp = 20
+death_texture = ExtResource("2_0v7pw")
 
 [node name="CoyoteTime" type="Timer" parent="."]
 wait_time = 0.2
@@ -693,8 +705,8 @@ texture = ExtResource("2_kw2sw")
 [node name="SpringA" type="Sprite2D" parent="Sprites/Armor" node_paths=PackedStringArray("to")]
 use_parent_material = true
 position = Vector2(-17, 44)
-rotation = 0.380271
-scale = Vector2(1, 0.63521)
+rotation = 0.39753
+scale = Vector2(1, 0.609007)
 texture = SubResource("AtlasTexture_x4dm1")
 offset = Vector2(0, 50)
 script = ExtResource("7_r0prd")
@@ -703,8 +715,8 @@ to = NodePath("../../Feet/FootA/Sprite2D")
 [node name="SpringB" type="Sprite2D" parent="Sprites/Armor" node_paths=PackedStringArray("to")]
 use_parent_material = true
 position = Vector2(61, 78)
-rotation = -0.864333
-scale = Vector2(1, 0.474134)
+rotation = -0.91196
+scale = Vector2(1, 0.456119)
 texture = SubResource("AtlasTexture_82l85")
 offset = Vector2(0, 61)
 script = ExtResource("7_r0prd")
@@ -754,7 +766,7 @@ position = Vector2(-46.5666, 37.2458)
 texture = SubResource("AtlasTexture_b51h5")
 
 [node name="Barrel" parent="Sprites/Gun/Sprite2D" instance=ExtResource("11_mlvyw")]
-position = Vector2(255.875, -37.1648)
+position = Vector2(260.434, -16.7709)
 
 [node name="BlinkTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -771,15 +783,5 @@ bus = &"Noises"
 stream = ExtResource("14_4os65")
 bus = &"Noises"
 
-[node name="DeathParticles" type="GPUParticles2D" parent="."]
-process_mode = 3
-emitting = false
-amount = 1
-process_material = SubResource("ParticleProcessMaterial_4uuud")
-texture = ExtResource("15_0pla4")
-one_shot = true
-explosiveness = 1.0
-
 [connection signal="timeout" from="BlinkTimer" to="." method="_on_blink_timer_timeout"]
 [connection signal="timeout" from="HeadAnimTimer" to="." method="_on_head_anim_timer_timeout"]
-[connection signal="finished" from="DeathParticles" to="." method="_on_death_particles_finished"]

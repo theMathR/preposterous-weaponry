@@ -1,7 +1,7 @@
 extends Damageable
 
 @export var dmg_multiplier = 1.0
-@export var accuracy = 100.
+@export var aiming_speed = TAU
 @export var reaction_time = 0.5
 
 const SPEED = 600.
@@ -14,21 +14,33 @@ var on_floor = false
 var is_walking = false
 var knockback: float = 0
 
+var will_shoot = false
+var shooting = false
+
 var face_expression = 0
 
 var blink = 0
 
 func _ready() -> void:
+	# Equip gun part
 	var gun_part = get_child(-1)
 	if gun_part is GunPart:
 		gun_part.reparent($Sprites/Gun/Sprite2D)
 		gun_part.set_wielder(self)
+		gun_part.damage *= dmg_multiplier
+		gun_part.position = Vector2(190, -25)
+
+	$ReactionTimer.wait_time = reaction_time
+	
+	# Randomized appearance
+	material.set_shader_parameter('green_scale', randf_range(0.5,1.5))
+	material.set_shader_parameter('grayscale_color', Color.from_hsv(randf(), randf()/4, 1))
 
 func damage(dmg):
 	super.damage(dmg)
-	set_face(3)
+	set_face(3) # Damage face
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	on_floor = is_on_floor()
 	
 	# Add the gravity
@@ -37,7 +49,7 @@ func _process(delta: float) -> void:
 	
 	# Walk
 	var greg_pos = greg.global_position - global_position - $Sprites.position
-	if greg_pos.x * $Sprites.scale.x < -50:
+	if greg_pos.x * $Sprites.scale.x < -50: # Look in the right direction
 		$Sprites.scale.x *= -1
 		$Sprites/Feet.rotation *= -1
 	#var walk = Input.get_axis("walk_left", "walk_right")
@@ -60,10 +72,11 @@ func _process(delta: float) -> void:
 	# Look at Greg
 	var head_direction: int = floor(abs(greg_pos.angle_to(Vector2.UP))/PI*5)+1
 	if head_direction > 5: head_direction = 5
-	if greg_pos.length_squared() < 10000:
+	if greg_pos.length_squared() < 10000 or greg_pos.length_squared() > 1250**2: # If too close, look at camera
 		head_direction = 0
 	$Sprites/Head.texture.region.position.x = 200 * head_direction
-	$Sprites/Gun.look_at($Sprites.global_position+greg_pos.normalized() * 500)
+	$Sprites/RayCast2D.look_at($Sprites.global_position+greg_pos.normalized() * 500)
+	$Sprites/Gun.rotation = move_toward($Sprites/Gun.rotation, $Sprites/RayCast2D.rotation, aiming_speed*delta)
 	
 	# Head expression
 	$Sprites/Head.texture.region.position.y = face_expression * 200
@@ -82,12 +95,18 @@ func _process(delta: float) -> void:
 	# Handle gun knockback
 	var parts_count = $Sprites/Gun/Sprite2D.get_child_count()
 	if parts_count:
-		print(name)
 		var adjusted_knockback = knockback/parts_count
 		$Sprites/Gun/Sprite2D.position.x = -50*adjusted_knockback
 		knockback = move_toward(adjusted_knockback, 0, delta*5) * parts_count
-		$Sprites/Gun/Sprite2D.get_child(0).shoot()
+		if shooting:
+			$Sprites/Gun/Sprite2D.get_child(0).shoot()
 	shake(delta)
+	
+	# Handle when to shoot
+	var greg_spotted = $Sprites/RayCast2D.get_collider() == greg
+	if greg_spotted != will_shoot:
+		will_shoot = greg_spotted
+		$ReactionTimer.start()
 
 func _on_blink_timer_timeout():
 	if face_expression == 1: face_expression = 0
@@ -101,3 +120,7 @@ func set_face(i):
 
 func _on_head_anim_timer_timeout():
 	face_expression = 0
+
+
+func _on_reaction_timer_timeout() -> void:
+	shooting = will_shoot

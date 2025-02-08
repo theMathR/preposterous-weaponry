@@ -86,7 +86,7 @@ func _physics_process(delta):
 		position.y += diff
 	$FeetCollision.position.x = $Sprites/Feet.position.x * $Sprites.scale.x
 	# At an angle
-	#a$Sprites/Feet.rotation = move_toward($Sprites/Feet.rotation, (get_floor_normal().angle() + PI/2) * $Sprites.scale.x if is_on_floor() else 0, delta * 5)
+	#$Sprites/Feet.rotation = move_toward($Sprites/Feet.rotation, (get_floor_normal().angle() + PI/2) * $Sprites.scale.x if is_on_floor() else 0, delta * 5)
 
 	# Fun rotation hack
 	$Sprites/Feet/FootA/Sprite2D.rotation = 2*$Sprites/Feet/FootA.rotation if $Sprites/Feet/FootA.scale.x == -1 else 0
@@ -102,6 +102,9 @@ func _physics_process(delta):
 	var adjusted_knockback = knockback/parts_count
 	$Sprites/Gun/Sprite2D.position.x = -50*adjusted_knockback
 	knockback = move_toward(adjusted_knockback, 0, delta*5) * parts_count
+	
+	# Shake when damage
+	shake(delta)
 	
 	was_on_floor = on_floor
 
@@ -132,6 +135,7 @@ func acquire_upgrade(upgrade: PackedScene):
 		$Sprites/Gun/Sprite2D.move_child(part, 2)
 	
 	part.set_wielder(self)
+	part.hide()
 	part.get_node('AnimationPlayer').play('deploy')
 	set_face(4)
 
@@ -153,3 +157,11 @@ func _on_head_anim_timer_timeout():
 
 func _on_death_particles_finished():
 	pass
+
+func die():
+	var death_particles = load('res://scenes/death_particles.tscn').instantiate()
+	death_particles.global_position = $Sprites.global_position
+	death_particles.set_texture_and_material(death_texture, material)
+	get_parent().add_child(death_particles)
+	hide()
+	process_mode = PROCESS_MODE_DISABLED
