@@ -115,12 +115,17 @@ func _physics_process(delta):
 			if part is not GunPart: continue
 			part.shoot()
 			set_face(2)
+	elif Input.is_action_just_released("global_shoot_temp"):
+		for part in $Sprites/Gun/Sprite2D.get_children():
+			if part is not GunPart: continue
+			part.release()
+			set_face(2)
 		
 
 func acquire_upgrade(upgrade: PackedScene):
 	var part: GunPart = upgrade.instantiate()
 	
-	var direction = randi_range(0,1)
+	var direction = 1 if $Sprites/Gun/Sprite2D.get_child_count() % 2 else 0
 	var support_part: GunPart
 	if direction == 0:
 		support_part = $Sprites/Gun/Sprite2D.get_child(2)

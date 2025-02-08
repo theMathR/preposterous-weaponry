@@ -1,0 +1,235 @@
+[gd_scene load_steps=20 format=3 uid="uid://bvwj77ru2na27"]
+
+[ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_wmgw6"]
+[ext_resource type="Texture2D" uid="uid://bb2dopr8cgcot" path="res://assets/checkpoint/gradient.png" id="1_xlila"]
+[ext_resource type="Texture2D" uid="uid://b85a6qp6ddvik" path="res://assets/checkpoint/particles.png" id="2_cxube"]
+[ext_resource type="Texture2D" uid="uid://c0elt3lsfbh3v" path="res://assets/checkpoint/platform.png" id="3_7s02g"]
+[ext_resource type="Texture2D" uid="uid://ortx0upowqkl" path="res://assets/checkpoint/unchecked.png" id="4_pml5c"]
+[ext_resource type="AudioStream" uid="uid://cahsbjan1jdnw" path="res://assets/checkpoint/check.mp3" id="6_yn07e"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8ic1n"]
+particles_animation = true
+particles_anim_h_frames = 4
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_sv6c5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_vulyi"]
+curve = SubResource("Curve_sv6c5")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d5kq2"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(75, 1, 1)
+gravity = Vector3(0, -980, 0)
+alpha_curve = SubResource("CurveTexture_vulyi")
+anim_offset_max = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w3rlh"]
+size = Vector2(184, 117)
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jovxw"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_7o2fw"]
+filter_enabled = true
+filters = ["AudioStreamPlayer", "GPUParticles2D/Light:scale", "GPUParticles2D:amount_ratio", "GPUParticles2D:modulate"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5d6s2"]
+animation = &"shine"
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_lihlj"]
+graph_offset = Vector2(-201.826, -32.4313)
+nodes/idle/node = SubResource("AnimationNodeAnimation_jovxw")
+nodes/idle/position = Vector2(9, 120)
+nodes/output/position = Vector2(500, 80)
+nodes/shine/node = SubResource("AnimationNodeOneShot_7o2fw")
+nodes/shine/position = Vector2(240, 60)
+nodes/shine_/node = SubResource("AnimationNodeAnimation_5d6s2")
+nodes/shine_/position = Vector2(16, 351)
+node_connections = [&"output", 0, &"shine", &"shine", 0, &"idle", &"shine", 1, &"shine_"]
+
+[sub_resource type="Animation" id="Animation_1exs5"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(0.517632, 1.86607),
+"update": 0,
+"values": [Vector2(0, -334), Vector2(0, -283)]
+}
+
+[sub_resource type="Animation" id="Animation_l86dd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -334)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D/Light:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 0, 0, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles2D:amount_ratio")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_ahw8d"]
+resource_name = "shine"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D/Light:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5),
+"transitions": PackedFloat32Array(0.307786, 2.54912, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1, 2), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GPUParticles2D:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.25, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GPUParticles2D:amount_ratio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.25]
+}
+tracks/3/type = "audio"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AudioStreamPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_yn07e")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/3/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8t1nq"]
+_data = {
+"RESET": SubResource("Animation_l86dd"),
+"idle": SubResource("Animation_1exs5"),
+"shine": SubResource("Animation_ahw8d")
+}
+
+[node name="Checkpoint" type="Area2D"]
+script = ExtResource("1_wmgw6")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1, 0, 0, 1)
+material = SubResource("CanvasItemMaterial_8ic1n")
+position = Vector2(0, -35)
+amount = 32
+process_material = SubResource("ParticleProcessMaterial_d5kq2")
+texture = ExtResource("2_cxube")
+lifetime = 0.75
+
+[node name="Light" type="Sprite2D" parent="GPUParticles2D"]
+position = Vector2(0, 35)
+texture = ExtResource("1_xlila")
+offset = Vector2(0, -89)
+
+[node name="Platform" type="Sprite2D" parent="."]
+texture = ExtResource("3_7s02g")
+offset = Vector2(0, -15)
+
+[node name="Screen" type="Sprite2D" parent="."]
+position = Vector2(0, -334)
+texture = ExtResource("4_pml5c")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(-128, 0, -94, -27, 102, -27, 129, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -84)
+shape = SubResource("RectangleShape2D_w3rlh")
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendTree_lihlj")
+anim_player = NodePath("../AnimationPlayer")
+parameters/shine/active = false
+parameters/shine/internal_active = false
+parameters/shine/request = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8t1nq")
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

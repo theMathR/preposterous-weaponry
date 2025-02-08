@@ -14,3 +14,6 @@ func hit(target: Node) -> void:
 	if target is not Damageable: return
 	if target.is_in_group('enemies') == is_enemy: return
 	target.damage(damage)
+
+func shoot() -> void: pass
+func release() -> void: pass

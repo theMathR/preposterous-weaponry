@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=4 uid="uid://d1mse6mopmusv"]
+[gd_scene load_steps=16 format=4 uid="uid://d1mse6mopmusv"]
 
 [ext_resource type="Texture2D" uid="uid://dqnc3h83shsiw" path="res://assets/tilemaps/test.png" id="1_s7ee8"]
 [ext_resource type="PackedScene" uid="uid://dk5jd1u74hjl" path="res://scenes/greg.tscn" id="2_1qkwt"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dxy820w6p1l5t" path="res://assets/upgrades/shotgun/icon.png" id="5_vhn3o"]
 [ext_resource type="PackedScene" uid="uid://xnt1sckefvoc" path="res://scenes/upgrades/shotgun.tscn" id="6_odpkq"]
 [ext_resource type="Shader" path="res://scripts/palette.gdshader" id="8_1s5dx"]
+[ext_resource type="PackedScene" uid="uid://bvwj77ru2na27" path="res://scenes/checkpoint.tscn" id="10_n1hag"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w0ecp"]
 texture = ExtResource("1_s7ee8")
@@ -39,30 +40,6 @@ shader_parameter/grayscale_color = Color(1, 1, 1, 1)
 shader_parameter/green_scale = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ev4gw"]
-resource_local_to_scene = true
-shader = ExtResource("8_1s5dx")
-shader_parameter/grayscale_color = Color(1, 1, 1, 1)
-shader_parameter/green_scale = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jcal1"]
-resource_local_to_scene = true
-shader = ExtResource("8_1s5dx")
-shader_parameter/grayscale_color = Color(1, 1, 1, 1)
-shader_parameter/green_scale = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_slin4"]
-resource_local_to_scene = true
-shader = ExtResource("8_1s5dx")
-shader_parameter/grayscale_color = Color(1, 1, 1, 1)
-shader_parameter/green_scale = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_q3eus"]
-resource_local_to_scene = true
-shader = ExtResource("8_1s5dx")
-shader_parameter/grayscale_color = Color(1, 1, 1, 1)
-shader_parameter/green_scale = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f0k5u"]
 resource_local_to_scene = true
 shader = ExtResource("8_1s5dx")
 shader_parameter/grayscale_color = Color(1, 1, 1, 1)
@@ -163,26 +140,6 @@ position = Vector2(-128, 384)
 material = SubResource("ShaderMaterial_ev4gw")
 position = Vector2(384, 256)
 
-[node name="Joe3" parent="Node2D" instance=ExtResource("4_mr01q")]
-material = SubResource("ShaderMaterial_jcal1")
-position = Vector2(384, 0)
-
-[node name="Joe5" parent="Node2D" instance=ExtResource("4_mr01q")]
-material = SubResource("ShaderMaterial_slin4")
-position = Vector2(384, -512)
-
-[node name="Joe4" parent="Node2D" instance=ExtResource("4_mr01q")]
-material = SubResource("ShaderMaterial_q3eus")
-position = Vector2(-128, 0)
-
-[node name="Joe6" parent="Node2D" instance=ExtResource("4_mr01q")]
-material = SubResource("ShaderMaterial_f0k5u")
-position = Vector2(-128, -384)
-
-[node name="Joe7" parent="Node2D" instance=ExtResource("4_mr01q")]
-material = SubResource("ShaderMaterial_f0k5u")
-position = Vector2(128, -384)
-
 [node name="Greg" parent="." instance=ExtResource("2_1qkwt")]
 position = Vector2(128, 384)
 
@@ -191,3 +148,6 @@ position = Vector2(0, -130)
 zoom = Vector2(0.5, 0.5)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
+
+[node name="Checkpoint" parent="." instance=ExtResource("10_n1hag")]
+position = Vector2(1152, 512)

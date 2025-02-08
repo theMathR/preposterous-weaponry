@@ -100,6 +100,7 @@ func _physics_process(delta: float) -> void:
 		knockback = move_toward(adjusted_knockback, 0, delta*5) * parts_count
 		if shooting:
 			$Sprites/Gun/Sprite2D.get_child(0).shoot()
+			set_face(2) # Shooting
 	shake(delta)
 	
 	# Handle when to shoot
@@ -124,3 +125,4 @@ func _on_head_anim_timer_timeout():
 
 func _on_reaction_timer_timeout() -> void:
 	shooting = will_shoot
+	if not shooting: $Sprites/Gun/Sprite2D.get_child(0).release()
