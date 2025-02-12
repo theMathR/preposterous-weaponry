@@ -5,7 +5,6 @@ const ACCELERATION_SPEED = 4096*2.
 const JUMP_VELOCITY = -2560.-256.
 
 var was_on_floor = false
-var on_floor = false
 var is_walking = false
 var knockback: float = 0
 var face_expression = 0
@@ -13,13 +12,14 @@ var face_expression = 0
 var blink = 0
 
 func _ready() -> void:
-	$Sprites/Gun/Sprite2D/Barrel.set_wielder(self)
+	Global.Greg = self
+	global_position = Global.saved_position
+	
+	$Sprites/Gun/Sprite2D/Barrel.wielder = self
 
 func _physics_process(delta):
-	on_floor = is_on_floor()
-	
 	# Add the gravity
-	if not on_floor:
+	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
 	# Walk
@@ -40,10 +40,10 @@ func _physics_process(delta):
 		is_walking = false
 	
 	# Handle jump
-	if not on_floor and was_on_floor:
+	if not is_on_floor() and was_on_floor:
 		$CoyoteTime.start()
 	var coyote_time = not $CoyoteTime.is_stopped()
-	if (on_floor or coyote_time) and Input.is_action_just_pressed("jump"):
+	if (is_on_floor() or coyote_time) and Input.is_action_just_pressed("jump"):
 		velocity.y = JUMP_VELOCITY
 		$AnimationTree['parameters/movement/playback'].travel('jump')
 	if Input.is_action_just_released("jump") and velocity.y < 0:
@@ -78,7 +78,7 @@ func _physics_process(delta):
  
 	# To make the feet not go through the ground
 	# This was REALLY tough to get right :/
-	if not on_floor:
+	if not is_on_floor():
 		$FeetCollision.global_position.y = max($Sprites/Feet/FootB.global_position.y,$Sprites/Feet/FootA.global_position.y) - 70
 	else:
 		var diff = $FeetCollision.global_position.y + 70 - max($Sprites/Feet/FootB.global_position.y,$Sprites/Feet/FootA.global_position.y) 
@@ -92,7 +92,7 @@ func _physics_process(delta):
 	$Sprites/Feet/FootA/Sprite2D.rotation = 2*$Sprites/Feet/FootA.rotation if $Sprites/Feet/FootA.scale.x == -1 else 0
 
 	# Feet follow speed
-	if not on_floor:
+	if not is_on_floor():
 		$Sprites/Feet.position.x = move_toward($Sprites/Feet.position.x, abs(velocity.x/SPEED*50),  delta*100)
 	else:
 		$Sprites/Feet.position.x = move_toward($Sprites/Feet.position.x, 0,  delta*SPEED/2)
@@ -103,23 +103,19 @@ func _physics_process(delta):
 	$Sprites/Gun/Sprite2D.position.x = -50*adjusted_knockback
 	knockback = move_toward(adjusted_knockback, 0, delta*5) * parts_count
 	
-	# Shake when damage
-	shake(delta)
-	
-	was_on_floor = on_floor
+	was_on_floor = is_on_floor()
 
-	# Shoot da guns!
-	# Temporary
-	if Input.is_action_pressed("global_shoot_temp"):
-		for part in $Sprites/Gun/Sprite2D.get_children():
-			if part is not GunPart: continue
-			part.shoot()
-			set_face(2)
-	elif Input.is_action_just_released("global_shoot_temp"):
-		for part in $Sprites/Gun/Sprite2D.get_children():
-			if part is not GunPart: continue
-			part.release()
-			set_face(2)
+# Shoot da guns!
+func _input(event: InputEvent) -> void:
+	if event is not InputEventKey: return
+	var triggered = Global.upgrades_keybinds.find(event.physical_keycode)
+	if triggered == -1: return
+	var part = $Sprites/Gun/Sprite2D.get_child(triggered+2)
+	if not part is GunPart: return
+	if event.pressed:
+		part.shoot()
+		set_face(2)
+	else: part.release()
 		
 
 func acquire_upgrade(upgrade: PackedScene):
@@ -133,16 +129,18 @@ func acquire_upgrade(upgrade: PackedScene):
 		support_part = $Sprites/Gun/Sprite2D.get_child(-1)
 	
 	part.position.x = randf_range(220,270)
-	part.position.y = support_part.position.y + (randf_range(-support_part.height, 0) if direction else randf_range(0, support_part.height)) + (randf_range(-part.height, 0) if direction else randf_range(0, part.height))
+	part.position.y = support_part.position.y + (randf_range(-support_part.height, -support_part.height*3/4) if direction else randf_range(support_part.height*3/4, support_part.height)) + (randf_range(-part.height, 0) if direction else randf_range(0, part.height))
 	
+	part.wielder = self
+	part.hide()
 	$Sprites/Gun/Sprite2D.add_child(part)
 	if direction == 0:
 		$Sprites/Gun/Sprite2D.move_child(part, 2)
 	
-	part.set_wielder(self)
-	part.hide()
+	Global.upgrades_keybinds.append(Global.upgrades_keybinds[-1]+1)
+	
 	part.get_node('AnimationPlayer').play('deploy')
-	set_face(4)
+	$AcquireSound.play()
 
 
 func set_face(i):
@@ -163,10 +161,15 @@ func _on_head_anim_timer_timeout():
 func _on_death_particles_finished():
 	pass
 
+func damage(x):
+	super.damage(x)
+	$CanvasLayer/Control/Health.shake(100)
+
 func die():
 	var death_particles = load('res://scenes/death_particles.tscn').instantiate()
 	death_particles.global_position = $Sprites.global_position
 	death_particles.set_texture_and_material(death_texture, material)
+	get_tree().create_timer(2).timeout.connect(Global.respawn)
 	get_parent().add_child(death_particles)
 	hide()
 	process_mode = PROCESS_MODE_DISABLED

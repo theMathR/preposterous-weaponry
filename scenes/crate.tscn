@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cm8o1j0uu0yqu"]
+[gd_scene load_steps=10 format=3 uid="uid://cm8o1j0uu0yqu"]
 
 [ext_resource type="Script" path="res://scripts/crate.gd" id="1_k73yx"]
 [ext_resource type="Texture2D" uid="uid://we4wao2tds7w" path="res://assets/misc/crate/crate.png" id="2_441rp"]
 [ext_resource type="Shader" path="res://scripts/crate.gdshader" id="2_rnkad"]
 [ext_resource type="Texture2D" uid="uid://cef4qou66la1i" path="res://assets/misc/crate/broken.png" id="3_pdq3j"]
+[ext_resource type="Script" path="res://scripts/shaking.gd" id="4_uvtwq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hmrgf"]
 shader = ExtResource("2_rnkad")
@@ -33,7 +34,7 @@ gravity = Vector3(0, 9800, 0)
 [node name="Crate" type="CharacterBody2D" groups=["enemies"]]
 texture_filter = 1
 material = SubResource("ShaderMaterial_hmrgf")
-collision_layer = 5
+collision_layer = 13
 script = ExtResource("1_k73yx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -42,6 +43,7 @@ shape = SubResource("RectangleShape2D_jg5ls")
 [node name="Sprites" type="Sprite2D" parent="."]
 use_parent_material = true
 texture = ExtResource("2_441rp")
+script = ExtResource("4_uvtwq")
 
 [node name="DeathParticles" type="GPUParticles2D" parent="."]
 process_mode = 3

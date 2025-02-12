@@ -1,15 +1,31 @@
-[gd_scene load_steps=16 format=4 uid="uid://d1mse6mopmusv"]
+[gd_scene load_steps=26 format=4 uid="uid://d1mse6mopmusv"]
 
+[ext_resource type="Texture2D" uid="uid://hs2wi0mwyv0y" path="res://assets/tilemaps/pipes.png" id="1_kqehs"]
 [ext_resource type="Texture2D" uid="uid://dqnc3h83shsiw" path="res://assets/tilemaps/test.png" id="1_s7ee8"]
-[ext_resource type="PackedScene" uid="uid://dk5jd1u74hjl" path="res://scenes/greg.tscn" id="2_1qkwt"]
 [ext_resource type="Shader" path="res://scripts/crate.gdshader" id="3_6en7a"]
 [ext_resource type="PackedScene" uid="uid://cm8o1j0uu0yqu" path="res://scenes/crate.tscn" id="3_r8v72"]
 [ext_resource type="PackedScene" uid="uid://du1i2h87r072t" path="res://scenes/upgrades/upgrade.tscn" id="4_2rfxt"]
 [ext_resource type="PackedScene" uid="uid://bjao8wrwrikla" path="res://scenes/enemies/joe.tscn" id="4_mr01q"]
-[ext_resource type="Texture2D" uid="uid://dxy820w6p1l5t" path="res://assets/upgrades/shotgun/icon.png" id="5_vhn3o"]
-[ext_resource type="PackedScene" uid="uid://xnt1sckefvoc" path="res://scenes/upgrades/shotgun.tscn" id="6_odpkq"]
 [ext_resource type="Shader" path="res://scripts/palette.gdshader" id="8_1s5dx"]
+[ext_resource type="Texture2D" uid="uid://bowckmrtohsk" path="res://assets/upgrades/barrel/icon.png" id="8_qbos2"]
+[ext_resource type="PackedScene" uid="uid://b5jxm8d5vfeny" path="res://scenes/upgrades/punch.tscn" id="9_dsdtt"]
+[ext_resource type="PackedScene" uid="uid://bkv54qk1lefm1" path="res://scenes/upgrades/barrel.tscn" id="10_he51w"]
 [ext_resource type="PackedScene" uid="uid://bvwj77ru2na27" path="res://scenes/checkpoint.tscn" id="10_n1hag"]
+[ext_resource type="Texture2D" uid="uid://dxy820w6p1l5t" path="res://assets/upgrades/shotgun/icon.png" id="10_qkocq"]
+[ext_resource type="Texture2D" uid="uid://c8sb4mnqpshr2" path="res://assets/upgrades/knockback/icon.png" id="10_sx6du"]
+[ext_resource type="PackedScene" uid="uid://cqtgt0tl4v63v" path="res://scenes/upgrades/knockback.tscn" id="11_nucsb"]
+[ext_resource type="Texture2D" uid="uid://cp70fdj7ec34m" path="res://assets/upgrades/punch/icon.png" id="12_y3ine"]
+[ext_resource type="PackedScene" uid="uid://xnt1sckefvoc" path="res://scenes/upgrades/shotgun.tscn" id="13_x2slc"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8urv"]
+texture = ExtResource("1_kqehs")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:1/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_cfotn"]
+tile_size = Vector2i(64, 64)
+sources/0 = SubResource("TileSetAtlasSource_k8urv")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_w0ecp"]
 texture = ExtResource("1_s7ee8")
@@ -26,7 +42,7 @@ texture_region_size = Vector2i(256, 256)
 
 [sub_resource type="TileSet" id="TileSet_h2pyc"]
 tile_size = Vector2i(256, 256)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 9
 sources/0 = SubResource("TileSetAtlasSource_w0ecp")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_orsmt"]
@@ -45,12 +61,73 @@ shader = ExtResource("8_1s5dx")
 shader_parameter/grayscale_color = Color(1, 1, 1, 1)
 shader_parameter/green_scale = 1.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hp4y7"]
+resource_local_to_scene = true
+shader = ExtResource("8_1s5dx")
+shader_parameter/grayscale_color = Color(1, 1, 1, 1)
+shader_parameter/green_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iri0s"]
+resource_local_to_scene = true
+shader = ExtResource("8_1s5dx")
+shader_parameter/grayscale_color = Color(1, 1, 1, 1)
+shader_parameter/green_scale = 1.0
+
 [node name="World" type="Node2D"]
 texture_filter = 1
+
+[node name="Pipes" type="TileMapLayer" parent="."]
+visible = false
+tile_map_data = PackedByteArray("AABiAAoAAAAAAAAAAABiAA4AAAAAAAAAAABiAA8AAAAAAAAAAABiABAAAAAAAAAAAABiABEAAAAAAAAAAABiABIAAAAAAAAAAABiABMAAAAAAAAAAABiABQAAAAAAAAAAABiABUAAAAAAAAAAABiABYAAAAAAAAAAABiABcAAAAAAAAAAABiABgAAAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAACAAQAAAAAAAEAAAADAAQAAAAAAAAAAGAEAAQAAAAAAAAAAGAFAAQAAAAAAAAAAGAGAAQAAAAAAAAAAGAHAAQAAAAAAAAAAGAIAAQAAAAAAAAAAGAJAAQAAAAAAAAAAGAKAAQAAAAAAAAAAGALAAQAAAAAAAAAAGAMAAQAAAAAAAAAAGANAAQAAAAAAAAAAGAOAAQAAAAAAAAAAGAPAAQAAAAAAAAAAGAQAAQAAAAAAAAAAGARAAQAAAAAAAAAAGASAAQAAAAAAAAAAGATAAQAAAAAAAAAAGAUAAQAAAAAAAAAAGAVAAQAAAAAAAAAAGAWAAQAAAAAAAEAADAWAAUAAAAAAAAAAAAWAAYAAAAAAAAAAAAWAAcAAAAAAAAAAAAWAAgAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_cfotn")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAAAAIAAAABAAAAAAABAAIAAAABAAAAAAACAAIAAAABAAAAAAADAAIAAAABAAAAAAAEAAIAAAABAAAAAAAFAAIAAAABAAAAAAD//wIAAAABAAAAAAD+/wIAAAABAAAAAAADAP//AAABAAAAAAADAP7/AAABAAAAAAD+/wEAAAABAAAAAAD8/wIAAAABAAAAAAD8/wEAAAABAAAAAAD8/wAAAAABAAAAAAD7/wIAAAABAAAAAAD6/wIAAAABAAAAAAD6/wEAAAABAAAAAAD6/wAAAAABAAAAAAD6////AAABAAAAAAD5/wIAAAABAAAAAAD4/wIAAAABAAAAAAD4/wEAAAABAAAAAAD4/wAAAAABAAAAAAD4////AAABAAAAAAD4//7/AAABAAAAAAD3/wIAAAABAAAAAAD2/wIAAAABAAAAAAAEAP//AAABAAAAAAAFAP//AAABAAAAAAAGAP//AAABAAAAAAAGAAIAAAABAAAAAAAHAAIAAAABAAAAAAAIAAIAAAABAAAAAAAJAAIAAAABAAAAAAAJAP//AAABAAAAAAAJAP7/AAABAAAAAAAJAP3/AAABAAAAAAAJAPz/AAABAAAAAAAJAPv/AAABAAAAAAAJAPr/AAABAAAAAAAJAPn/AAABAAAAAAAIAPn/AAABAAAAAAAHAPn/AAABAAAAAAAGAPn/AAABAAAAAAAFAPn/AAABAAAAAAAEAPn/AAABAAAAAAAEAPj/AAABAAAAAAADAPj/AAABAAAAAAADAPn/AAABAAAAAAAFAP7/AAABAAAAAAAFAP3/AAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAD//wkAAAABAAAAAAD+/wkAAAABAAAAAAD9/wkAAAABAAAAAAD8/wkAAAABAAAAAAD7/wkAAAABAAAAAAD6/wkAAAABAAAAAAD5/wkAAAABAAAAAAD4/wkAAAABAAAAAAD3/wkAAAABAAAAAAD2/wkAAAABAAAAAAD1/wkAAAABAAAAAAD0/wkAAAABAAAAAADz/wkAAAABAAAAAADy/wkAAAABAAAAAADx/wkAAAABAAAAAADw/wkAAAABAAAAAADv/wkAAAABAAAAAADu/wkAAAABAAAAAADt/wkAAAABAAAAAADs/wkAAAABAAAAAADr/wkAAAABAAAAAADq/wkAAAABAAAAAADp/wkAAAABAAAAAADp/wgAAAABAAAAAADp/wcAAAABAAAAAADp/wYAAAABAAAAAADp/wUAAAABAAAAAADp/wQAAAABAAAAAADp/wMAAAABAAAAAADp/wIAAAABAAAAAADp/wEAAAABAAAAAADq/wUAAAABAAAAAADr/wUAAAABAAAAAADs/wYAAAABAAAAAADt/wIAAAABAAAAAADu/wIAAAABAAAAAADx/wAAAAABAAAAAADy/wAAAAABAAAAAAAKAAIAAAABAAAAAAALAAIAAAABAAAAAAAMAAIAAAABAAAAAAANAAIAAAABAAAAAAAKAP//AAABAAAAAAALAP//AAABAAAAAAAOAAIAAAABAAAAAAAPAAIAAAABAAAAAAAQAAIAAAABAAAAAAAPAP//AAABAAAAAAAQAP//AAABAAAAAAARAAIAAAABAAAAAAARAAEAAAABAAAAAAARAAAAAAABAAAAAAARAP//AAABAAAAAAARAP7/AAABAAAAAAARAP3/AAABAAAAAAASAP3/AAABAAAAAAASAPz/AAABAAAAAAATAPz/AAABAAAAAAANAAEAAAACAAAAABAOAAAAAAACAAAAABAOAAEAAAABAAAAAAAPAAEAAAABAAAAAAAQAAEAAAABAAAAAAAQAAAAAAABAAAAAAAPAAAAAAABAAAAAAAMAP//AAACAAAAAFDp/wAAAAACAAAAAADo/wAAAAACAAAAAADo////AAACAAAAAADn//7/AAACAAAAAADm//7/AAACAAAAAADm//3/AAACAAAAAADl//z/AAACAAAAAADl//3/AAACAAAAAADm////AAACAAAAAADn////AAACAAAAAADn/wAAAAACAAAAAADm/wAAAAACAAAAAADl//7/AAACAAAAAADl////AAACAAAAAADl/wAAAAACAAAAAAD7////AAADAAAAAAD8////AAAEAAAAAAD5//7/AAADAAAAAAD6//7/AAAEAAAAAAATAPv/AAABAAAAAAAUAPv/AAABAAAAAAAUAPr/AAABAAAAAAAVAPr/AAABAAAAAAAVAPn/AAABAAAAAAAWAPj/AAABAAAAAAAWAPn/AAABAAAAAAAXAPj/AAABAAAAAAAXAPf/AAABAAAAAAAYAPf/AAABAAAAAAAYAPb/AAABAAAAAAAZAPb/AAABAAAAAAAaAPb/AAABAAAAAAAbAPb/AAABAAAAAAAcAPb/AAABAAAAAAAdAPb/AAABAAAAAAA=")
 tile_set = SubResource("TileSet_h2pyc")
+
+[node name="Upgrades" type="Node2D" parent="."]
+position = Vector2(-2816, 0)
+
+[node name="Upgrade3" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(5248, -1920)
+collect_id = 1
+texture = ExtResource("10_sx6du")
+upgrade = ExtResource("11_nucsb")
+
+[node name="Upgrade4" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(10368, -2688)
+collect_id = 2
+texture = ExtResource("10_sx6du")
+upgrade = ExtResource("11_nucsb")
+
+[node name="Upgrade" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(3968, -384)
+texture = ExtResource("8_qbos2")
+upgrade = ExtResource("10_he51w")
+
+[node name="Upgrade2" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(-256, 1664)
+collect_id = 9
+texture = ExtResource("10_qkocq")
+upgrade = ExtResource("13_x2slc")
+
+[node name="Upgrade5" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(-768, 1920)
+collect_id = 10
+texture = ExtResource("10_qkocq")
+upgrade = ExtResource("13_x2slc")
+
+[node name="Upgrade6" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(-256, 1920)
+collect_id = 41
+texture = ExtResource("12_y3ine")
+upgrade = ExtResource("9_dsdtt")
+
+[node name="Upgrade7" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(1152, 2176)
+collect_id = 42
+texture = ExtResource("12_y3ine")
+upgrade = ExtResource("9_dsdtt")
 
 [node name="Crates" type="Node2D" parent="."]
 
@@ -120,34 +197,60 @@ position = Vector2(-3584, 1408)
 max_hp = 10
 
 [node name="Crate18" parent="Crates" instance=ExtResource("3_r8v72")]
-position = Vector2(-384, 128)
+position = Vector2(896, 384)
 max_hp = 1
 
-[node name="Upgrades" type="Node2D" parent="."]
+[node name="Crate19" parent="Crates" instance=ExtResource("3_r8v72")]
+position = Vector2(896, 128)
+max_hp = 1
 
-[node name="Upgrade" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(3968, -384)
-texture = ExtResource("5_vhn3o")
-upgrade = ExtResource("6_odpkq")
+[node name="Crate20" parent="Crates" instance=ExtResource("3_r8v72")]
+position = Vector2(-384, -256)
+max_hp = 1
 
 [node name="Node2D" type="Node2D" parent="."]
 
 [node name="Joe" parent="Node2D" instance=ExtResource("4_mr01q")]
 material = SubResource("ShaderMaterial_5p1ot")
-position = Vector2(-128, 384)
+position = Vector2(1408, -896)
+reaction_time = 0.0
+
+[node name="Barrel" parent="Node2D/Joe" instance=ExtResource("10_he51w")]
 
 [node name="Joe2" parent="Node2D" instance=ExtResource("4_mr01q")]
 material = SubResource("ShaderMaterial_ev4gw")
-position = Vector2(384, 256)
+position = Vector2(-1280, -512)
 
-[node name="Greg" parent="." instance=ExtResource("2_1qkwt")]
-position = Vector2(128, 384)
+[node name="Punch" parent="Node2D/Joe2" instance=ExtResource("9_dsdtt")]
 
-[node name="Camera2D" type="Camera2D" parent="Greg"]
-position = Vector2(0, -130)
-zoom = Vector2(0.5, 0.5)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
+[node name="Joe3" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_hp4y7")
+position = Vector2(7296, -2688)
+reaction_time = 0.2
+
+[node name="Shotgun" parent="Node2D/Joe3" instance=ExtResource("13_x2slc")]
+damage = 3
+
+[node name="Joe5" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_hp4y7")
+position = Vector2(-5376, 2176)
+aiming_speed = 0.5
+reaction_time = 2.0
+
+[node name="Barrel" parent="Node2D/Joe5" instance=ExtResource("10_he51w")]
+
+[node name="Joe4" parent="Node2D" instance=ExtResource("4_mr01q")]
+material = SubResource("ShaderMaterial_iri0s")
+position = Vector2(7296, -2944)
+reaction_time = 0.2
+
+[node name="Shotgun" parent="Node2D/Joe4" instance=ExtResource("13_x2slc")]
+damage = 3
 
 [node name="Checkpoint" parent="." instance=ExtResource("10_n1hag")]
 position = Vector2(1152, 512)
+id = 1
+
+[node name="Checkpoint2" parent="." instance=ExtResource("10_n1hag")]
+position = Vector2(-5504, 1280)
+id = 1

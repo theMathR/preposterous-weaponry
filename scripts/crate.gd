@@ -6,14 +6,14 @@ func damage(dmg):
 		$Sprites.texture = load("res://assets/misc/crate/damaged.png")
 
 func _physics_process(delta):
-	shake(delta)
 	velocity += get_gravity() * delta
+	velocity.x = move_toward(velocity.x, 0, 4096*2. * delta)
 	move_and_slide()
 
 
 func die():
 	$Sprites.hide()
-	$CollisionShape2D.disabled = true
+	$CollisionShape2D.set_deferred('disabled', true)
 	$DeathParticles.restart()
 func _on_death_particles_finished():
 	queue_free()

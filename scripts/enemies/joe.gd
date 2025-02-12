@@ -1,16 +1,11 @@
 extends Damageable
 
-@export var dmg_multiplier = 1.0
 @export var aiming_speed = TAU
 @export var reaction_time = 0.5
 
 const SPEED = 600.
 const ACCELERATION_SPEED = 600.
 
-@onready var greg = get_node('../../Greg')
-
-var was_on_floor = false
-var on_floor = false
 var is_walking = false
 var knockback: float = 0
 
@@ -26,10 +21,9 @@ func _ready() -> void:
 	var gun_part = get_child(-1)
 	if gun_part is GunPart:
 		gun_part.reparent($Sprites/Gun/Sprite2D)
-		gun_part.set_wielder(self)
-		gun_part.damage *= dmg_multiplier
+		gun_part.wielder = self
 		gun_part.position = Vector2(190, -25)
-
+ 
 	$ReactionTimer.wait_time = reaction_time
 	
 	# Randomized appearance
@@ -41,14 +35,12 @@ func damage(dmg):
 	set_face(3) # Damage face
 
 func _physics_process(delta: float) -> void:
-	on_floor = is_on_floor()
-	
 	# Add the gravity
-	if not on_floor:
+	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
 	# Walk
-	var greg_pos = greg.global_position - global_position - $Sprites.position
+	var greg_pos = Global.Greg.global_position - global_position
 	if greg_pos.x * $Sprites.scale.x < -50: # Look in the right direction
 		$Sprites.scale.x *= -1
 		$Sprites/Feet.rotation *= -1
@@ -87,7 +79,7 @@ func _physics_process(delta: float) -> void:
 	$Sprites/Feet/FootA/Sprite2D.rotation = 2*$Sprites/Feet/FootA.rotation if $Sprites/Feet/FootA.scale.x == -1 else 0
 
 	# Feet follow speed
-	#if not on_floor:
+	#if not is_on_floor():
 		#$Sprites/Feet.position.x = move_toward($Sprites/Feet.position.x, abs(velocity.x/SPEED*50),  delta*100)
 	#else:
 		#$Sprites/Feet.position.x = move_toward($Sprites/Feet.position.x, 0,  delta*SPEED/2)
@@ -101,10 +93,9 @@ func _physics_process(delta: float) -> void:
 		if shooting:
 			$Sprites/Gun/Sprite2D.get_child(0).shoot()
 			set_face(2) # Shooting
-	shake(delta)
 	
 	# Handle when to shoot
-	var greg_spotted = $Sprites/RayCast2D.get_collider() == greg
+	var greg_spotted = $Sprites/RayCast2D.get_collider() == Global.Greg
 	if greg_spotted != will_shoot:
 		will_shoot = greg_spotted
 		$ReactionTimer.start()

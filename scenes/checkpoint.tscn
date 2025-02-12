@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bvwj77ru2na27"]
+[gd_scene load_steps=32 format=3 uid="uid://bvwj77ru2na27"]
 
 [ext_resource type="Script" path="res://scripts/checkpoint.gd" id="1_wmgw6"]
 [ext_resource type="Texture2D" uid="uid://bb2dopr8cgcot" path="res://assets/checkpoint/gradient.png" id="1_xlila"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c0elt3lsfbh3v" path="res://assets/checkpoint/platform.png" id="3_7s02g"]
 [ext_resource type="Texture2D" uid="uid://ortx0upowqkl" path="res://assets/checkpoint/unchecked.png" id="4_pml5c"]
 [ext_resource type="AudioStream" uid="uid://cahsbjan1jdnw" path="res://assets/checkpoint/check.mp3" id="6_yn07e"]
+[ext_resource type="Texture2D" uid="uid://cq6o4ritfw5b8" path="res://assets/checkpoint/checked.png" id="7_raau2"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_8ic1n"]
 particles_animation = true
@@ -31,6 +32,8 @@ anim_offset_max = 1.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w3rlh"]
 size = Vector2(184, 117)
 
+[sub_resource type="AnimationNodeAdd2" id="AnimationNodeAdd2_c17xv"]
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jovxw"]
 animation = &"idle"
 
@@ -41,34 +44,52 @@ filters = ["AudioStreamPlayer", "GPUParticles2D/Light:scale", "GPUParticles2D:am
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5d6s2"]
 animation = &"shine"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wiecj"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_kqo05"]
+animation = &"check"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nqrcb"]
+animation = &"checked"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ndm2d"]
+advance_mode = 2
+advance_expression = "not checked"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vbqnf"]
+advance_mode = 2
+advance_expression = "checked"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j7un5"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bry1o"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_fq3f4"]
+states/RESET/node = SubResource("AnimationNodeAnimation_wiecj")
+states/RESET/position = Vector2(452, 41)
+states/check/node = SubResource("AnimationNodeAnimation_kqo05")
+states/check/position = Vector2(664, 101)
+states/checked/node = SubResource("AnimationNodeAnimation_nqrcb")
+states/checked/position = Vector2(461, 157)
+transitions = ["Start", "RESET", SubResource("AnimationNodeStateMachineTransition_ndm2d"), "Start", "checked", SubResource("AnimationNodeStateMachineTransition_vbqnf"), "check", "checked", SubResource("AnimationNodeStateMachineTransition_j7un5"), "RESET", "check", SubResource("AnimationNodeStateMachineTransition_bry1o")]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_lihlj"]
-graph_offset = Vector2(-201.826, -32.4313)
+graph_offset = Vector2(-10.9684, -112.419)
+nodes/Add2/node = SubResource("AnimationNodeAdd2_c17xv")
+nodes/Add2/position = Vector2(860, 60)
 nodes/idle/node = SubResource("AnimationNodeAnimation_jovxw")
-nodes/idle/position = Vector2(9, 120)
-nodes/output/position = Vector2(500, 80)
+nodes/idle/position = Vector2(0, 120)
+nodes/output/position = Vector2(1160, 60)
 nodes/shine/node = SubResource("AnimationNodeOneShot_7o2fw")
-nodes/shine/position = Vector2(240, 60)
+nodes/shine/position = Vector2(380, 60)
 nodes/shine_/node = SubResource("AnimationNodeAnimation_5d6s2")
 nodes/shine_/position = Vector2(16, 351)
-node_connections = [&"output", 0, &"shine", &"shine", 0, &"idle", &"shine", 1, &"shine_"]
-
-[sub_resource type="Animation" id="Animation_1exs5"]
-resource_name = "idle"
-length = 2.0
-loop_mode = 1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Screen:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.1),
-"transitions": PackedFloat32Array(0.517632, 1.86607),
-"update": 0,
-"values": [Vector2(0, -334), Vector2(0, -283)]
-}
+nodes/state/node = SubResource("AnimationNodeStateMachine_fq3f4")
+nodes/state/position = Vector2(500, -120)
+node_connections = [&"Add2", 0, &"shine", &"Add2", 1, &"state", &"output", 0, &"Add2", &"shine", 0, &"idle", &"shine", 1, &"shine_"]
 
 [sub_resource type="Animation" id="Animation_l86dd"]
 length = 0.001
@@ -118,7 +139,95 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [1.0]
+"values": [0.25]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Screen:texture")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_pml5c")]
+}
+
+[sub_resource type="Animation" id="Animation_2a0ux"]
+resource_name = "check"
+length = 0.5
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -334), Vector2(-20, -334), Vector2(20, -334), Vector2(-20, -334), Vector2(0, -334)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Screen:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0001, 0.1, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_pml5c"), ExtResource("7_raau2"), ExtResource("4_pml5c"), ExtResource("7_raau2"), ExtResource("4_pml5c"), ExtResource("7_raau2")]
+}
+
+[sub_resource type="Animation" id="Animation_qbdx4"]
+resource_name = "checked"
+length = 0.01
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GPUParticles2D:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Screen:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("7_raau2")]
+}
+
+[sub_resource type="Animation" id="Animation_1exs5"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Screen:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.1),
+"transitions": PackedFloat32Array(0.517632, 1.86607),
+"update": 0,
+"values": [Vector2(0, -334), Vector2(0, -283)]
 }
 
 [sub_resource type="Animation" id="Animation_ahw8d"]
@@ -180,6 +289,8 @@ tracks/3/use_blend = true
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8t1nq"]
 _data = {
 "RESET": SubResource("Animation_l86dd"),
+"check": SubResource("Animation_2a0ux"),
+"checked": SubResource("Animation_qbdx4"),
 "idle": SubResource("Animation_1exs5"),
 "shine": SubResource("Animation_ahw8d")
 }
@@ -192,6 +303,7 @@ modulate = Color(1, 0, 0, 1)
 material = SubResource("CanvasItemMaterial_8ic1n")
 position = Vector2(0, -35)
 amount = 32
+amount_ratio = 0.25
 process_material = SubResource("ParticleProcessMaterial_d5kq2")
 texture = ExtResource("2_cxube")
 lifetime = 0.75
@@ -220,7 +332,9 @@ shape = SubResource("RectangleShape2D_w3rlh")
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
 tree_root = SubResource("AnimationNodeBlendTree_lihlj")
+advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+parameters/Add2/add_amount = 1.0
 parameters/shine/active = false
 parameters/shine/internal_active = false
 parameters/shine/request = 0
@@ -231,5 +345,6 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"player"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

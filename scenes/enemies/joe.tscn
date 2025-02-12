@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bjao8wrwrikla"]
+[gd_scene load_steps=21 format=3 uid="uid://bjao8wrwrikla"]
 
 [ext_resource type="Shader" path="res://scripts/palette.gdshader" id="1_4ksq4"]
 [ext_resource type="Script" path="res://scripts/enemies/joe.gd" id="1_tf57d"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b3hcerw6o4nsd" path="res://assets/joe/body.png" id="3_vilj4"]
 [ext_resource type="Texture2D" uid="uid://pfhfx64m6rog" path="res://assets/joe/feet.png" id="4_uvdiv"]
 [ext_resource type="Texture2D" uid="uid://clo536kwkr2rd" path="res://assets/joe/gun.png" id="5_88t0q"]
+[ext_resource type="Script" path="res://scripts/shaking.gd" id="6_pjw5q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ho0da"]
 resource_local_to_scene = true
@@ -219,6 +220,7 @@ shape = SubResource("CapsuleShape2D_pa115")
 
 [node name="Sprites" type="Node2D" parent="."]
 use_parent_material = true
+script = ExtResource("6_pjw5q")
 
 [node name="Head" type="Sprite2D" parent="Sprites"]
 use_parent_material = true
@@ -262,8 +264,8 @@ texture = ExtResource("5_88t0q")
 offset = Vector2(70, 0)
 
 [node name="RayCast2D" type="RayCast2D" parent="Sprites"]
-target_position = Vector2(1250, 0)
-collision_mask = 2
+target_position = Vector2(2343, 0)
+collision_mask = 10
 
 [node name="BlinkTimer" type="Timer" parent="."]
 wait_time = 0.1

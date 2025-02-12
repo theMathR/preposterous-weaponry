@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx8xc76g4x7mj"]
+
+[ext_resource type="PackedScene" uid="uid://d1mse6mopmusv" path="res://scenes/worldtest.tscn" id="1_ptevh"]
+[ext_resource type="PackedScene" uid="uid://dk5jd1u74hjl" path="res://scenes/greg.tscn" id="2_2gya4"]
+
+[node name="Game" type="Node"]
+
+[node name="World" parent="." instance=ExtResource("1_ptevh")]
+
+[node name="Greg" parent="World" instance=ExtResource("2_2gya4")]
+position = Vector2(0, 384)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://dk5jd1u74hjl"]
+[gd_scene load_steps=41 format=3 uid="uid://dk5jd1u74hjl"]
 
 [ext_resource type="Script" path="res://scripts/greg.gd" id="1_0qswn"]
 [ext_resource type="Texture2D" uid="uid://dm01qvesroay4" path="res://assets/greg/body.png" id="1_545s2"]
@@ -13,10 +13,14 @@
 [ext_resource type="Script" path="res://scripts/spring.gd" id="7_r0prd"]
 [ext_resource type="Texture2D" uid="uid://cmtgw15n4d5v7" path="res://assets/greg/armor.png" id="7_xtaie"]
 [ext_resource type="Texture2D" uid="uid://dt834eaprdbc" path="res://assets/greg/feet.png" id="8_ruepj"]
+[ext_resource type="Script" path="res://scripts/shaking.gd" id="8_wbrae"]
 [ext_resource type="Texture2D" uid="uid://bw70uurxwrin4" path="res://assets/greg/gun.png" id="9_eqamy"]
 [ext_resource type="Texture2D" uid="uid://4lu1vsoywnj2" path="res://assets/greg/hands.png" id="10_0y1mf"]
 [ext_resource type="PackedScene" uid="uid://bkv54qk1lefm1" path="res://scenes/upgrades/barrel.tscn" id="11_mlvyw"]
 [ext_resource type="AudioStream" uid="uid://dns3c8jmpjnf8" path="res://assets/greg/hit.mp3" id="14_4os65"]
+[ext_resource type="Texture2D" uid="uid://ff6wkpsouj42" path="res://assets/misc/health.png" id="18_3cfos"]
+[ext_resource type="AudioStream" uid="uid://b4uk5iywpcpg7" path="res://assets/upgrades/chime.mp3" id="18_c78bh"]
+[ext_resource type="Script" path="res://scripts/health_counter.gd" id="18_drn1n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nx8u4"]
 atlas = ExtResource("7_xtaie")
@@ -491,7 +495,7 @@ tracks/7/keys = {
 }],
 "times": PackedFloat32Array(0)
 }
-tracks/7/use_blend = false
+tracks/7/use_blend = true
 
 [sub_resource type="Animation" id="Animation_8s57s"]
 resource_name = "walk"
@@ -604,10 +608,6 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_20bfo"]
 size = Vector2(190, 173)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_oo7s8"]
-radius = 95.0
-height = 226.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_hch10"]
 atlas = ExtResource("4_47s0o")
 region = Rect2(0, 0, 128, 128)
@@ -635,6 +635,8 @@ region = Rect2(92, 5, 51, 54)
 [sub_resource type="AtlasTexture" id="AtlasTexture_b51h5"]
 atlas = ExtResource("10_0y1mf")
 region = Rect2(11, 5, 55, 49)
+
+[sub_resource type="Theme" id="Theme_wrcrl"]
 
 [node name="Greg" type="CharacterBody2D"]
 texture_filter = 1
@@ -676,12 +678,13 @@ parameters/movement/walk/direction/current_index = 0
 position = Vector2(9.75, 52.5)
 shape = SubResource("RectangleShape2D_20bfo")
 
-[node name="BodyCollision" type="CollisionShape2D" parent="."]
+[node name="BodyCollision" type="CollisionPolygon2D" parent="."]
 position = Vector2(0, -57)
-shape = SubResource("CapsuleShape2D_oo7s8")
+polygon = PackedVector2Array(-30, -105, 30, -105, 100, -40, 100, 100, -83, 107, -80, -40)
 
 [node name="Sprites" type="Node2D" parent="."]
 use_parent_material = true
+script = ExtResource("8_wbrae")
 
 [node name="Body" type="Sprite2D" parent="Sprites"]
 use_parent_material = true
@@ -705,8 +708,8 @@ texture = ExtResource("2_kw2sw")
 [node name="SpringA" type="Sprite2D" parent="Sprites/Armor" node_paths=PackedStringArray("to")]
 use_parent_material = true
 position = Vector2(-17, 44)
-rotation = 0.39753
-scale = Vector2(1, 0.609007)
+rotation = 0.169304
+scale = Vector2(1, 0.965017)
 texture = SubResource("AtlasTexture_x4dm1")
 offset = Vector2(0, 50)
 script = ExtResource("7_r0prd")
@@ -715,8 +718,8 @@ to = NodePath("../../Feet/FootA/Sprite2D")
 [node name="SpringB" type="Sprite2D" parent="Sprites/Armor" node_paths=PackedStringArray("to")]
 use_parent_material = true
 position = Vector2(61, 78)
-rotation = -0.91196
-scale = Vector2(1, 0.456119)
+rotation = -0.399904
+scale = Vector2(1, 0.863189)
 texture = SubResource("AtlasTexture_82l85")
 offset = Vector2(0, 61)
 script = ExtResource("7_r0prd")
@@ -777,11 +780,51 @@ wait_time = 0.75
 one_shot = true
 
 [node name="StepSound" type="AudioStreamPlayer" parent="."]
-bus = &"Noises"
+bus = &"physics"
 
 [node name="HitSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("14_4os65")
-bus = &"Noises"
+bus = &"physics"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+process_mode = 3
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Health" type="HBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 323.0
+offset_bottom = 128.0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("18_drn1n")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/Health"]
+layout_mode = 2
+texture = ExtResource("18_3cfos")
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/Health"]
+layout_mode = 2
+theme = SubResource("Theme_wrcrl")
+theme_override_font_sizes/font_size = 50
+text = "500/500"
+
+[node name="AcquireSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_c78bh")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.35, 0.35)
+script = ExtResource("8_wbrae")
 
 [connection signal="timeout" from="BlinkTimer" to="." method="_on_blink_timer_timeout"]
 [connection signal="timeout" from="HeadAnimTimer" to="." method="_on_head_anim_timer_timeout"]

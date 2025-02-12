@@ -101,13 +101,13 @@ nodes/output/position = Vector2(700, 160)
 node_connections = [&"direction", 0, &"forwards", &"direction", 1, &"backwards", &"output", 0, &"direction"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tctdb"]
-xfade_time = 0.1
+xfade_time = 0.25
 reset = false
 advance_mode = 2
 advance_expression = "is_walking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mo66r"]
-xfade_time = 0.1
+xfade_time = 0.25
 reset = false
 advance_mode = 2
 advance_expression = "not is_walking"
@@ -138,38 +138,39 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3diuv"]
 xfade_time = 0.1
 advance_mode = 2
-advance_expression = "not on_floor
+advance_expression = "not is_on_floor()
 "
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i5o53"]
 xfade_time = 0.05
 advance_mode = 2
-advance_expression = "on_floor and is_walking"
+advance_expression = "is_on_floor() and is_walking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g5v4g"]
 xfade_time = 0.05
 advance_mode = 2
-advance_expression = "on_floor and not is_walking"
+advance_expression = "is_on_floor() and not is_walking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_31k2w"]
 xfade_time = 0.1
 advance_mode = 2
-advance_expression = "not on_floor"
+advance_expression = "not is_on_floor()"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_o6dls"]
 xfade_time = 0.1
 advance_mode = 2
-advance_expression = "on_floor and is_walking"
+advance_expression = "is_on_floor() and is_walking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_w0mfy"]
 xfade_time = 0.1
 advance_mode = 2
-advance_expression = "on_floor and not is_walking
+advance_expression = "is_on_floor() and not is_walking
 
 "
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_no1ve"]
-switch_mode = 2
+xfade_time = 0.25
+switch_mode = 1
 advance_mode = 2
 advance_expression = "is_walking"
 
@@ -179,7 +180,7 @@ xfade_time = 0.25
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aidp3"]
 xfade_time = 0.1
 advance_mode = 2
-advance_expression = "not on_floor"
+advance_expression = "not is_on_floor()"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_igh7e"]
 xfade_time = 0.1
@@ -195,7 +196,7 @@ advance_expression = "is_walking
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2sag3"]
 xfade_time = 0.1
 advance_mode = 2
-advance_expression = "not on_floor"
+advance_expression = "not is_on_floor()"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_c0x8t"]
 states/Start/position = Vector2(145, -86)
@@ -212,13 +213,13 @@ states/land_walk/position = Vector2(257, 409)
 states/walk/node = SubResource("AnimationNodeBlendTree_1vyi6")
 states/walk/position = Vector2(90, 224)
 transitions = ["land", "land_walk", SubResource("AnimationNodeStateMachineTransition_tctdb"), "land_walk", "land", SubResource("AnimationNodeStateMachineTransition_mo66r"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_13mhb"), "idle", "jump", SubResource("AnimationNodeStateMachineTransition_yxdpb"), "land", "idle", SubResource("AnimationNodeStateMachineTransition_8cxxm"), "land_walk", "jump", SubResource("AnimationNodeStateMachineTransition_cqmex"), "land", "jump", SubResource("AnimationNodeStateMachineTransition_e24bs"), "jump", "air", SubResource("AnimationNodeStateMachineTransition_884gt"), "idle", "air", SubResource("AnimationNodeStateMachineTransition_3diuv"), "air", "land_walk", SubResource("AnimationNodeStateMachineTransition_i5o53"), "air", "land", SubResource("AnimationNodeStateMachineTransition_g5v4g"), "land", "air", SubResource("AnimationNodeStateMachineTransition_31k2w"), "jump", "land_walk", SubResource("AnimationNodeStateMachineTransition_o6dls"), "jump", "land", SubResource("AnimationNodeStateMachineTransition_w0mfy"), "land_walk", "walk", SubResource("AnimationNodeStateMachineTransition_no1ve"), "walk", "jump", SubResource("AnimationNodeStateMachineTransition_tlf1m"), "walk", "air", SubResource("AnimationNodeStateMachineTransition_aidp3"), "walk", "idle", SubResource("AnimationNodeStateMachineTransition_igh7e"), "idle", "walk", SubResource("AnimationNodeStateMachineTransition_vru20"), "land_walk", "air", SubResource("AnimationNodeStateMachineTransition_2sag3")]
-graph_offset = Vector2(25, 68.864)
+graph_offset = Vector2(-24, 100.864)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cialc"]
 animation = &"RESET"
 
 [resource]
-graph_offset = Vector2(-169, 260)
+graph_offset = Vector2(-130, 264)
 nodes/add_frontfacing/node = SubResource("AnimationNodeAdd2_6ahx8")
 nodes/add_frontfacing/position = Vector2(560, 100)
 nodes/frontfacing/node = SubResource("AnimationNodeAnimation_3jaae")

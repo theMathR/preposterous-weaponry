@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://xnt1sckefvoc"]
+[gd_scene load_steps=12 format=3 uid="uid://xnt1sckefvoc"]
 
 [ext_resource type="Script" path="res://scripts/upgrades/shotgun.gd" id="1_b3mgy"]
 [ext_resource type="Texture2D" uid="uid://ek8hr6stj1u5" path="res://assets/upgrades/shotgun/shoot.png" id="2_sraga"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://goqyt0fage04" path="res://assets/upgrades/shotgun/b.png" id="4_qvtrc"]
 [ext_resource type="Texture2D" uid="uid://dil0hivet882b" path="res://assets/upgrades/shotgun/c.png" id="4_tgmep"]
 [ext_resource type="AudioStream" uid="uid://bfyadwm2l766s" path="res://assets/upgrades/barrel/shot.mp3" id="5_1ps4v"]
+[ext_resource type="AudioStream" uid="uid://tr7snhxo1kxi" path="res://assets/upgrades/deploy.mp3" id="6_xfnww"]
 
 [sub_resource type="Animation" id="Animation_vn0xq"]
 length = 0.001
@@ -145,6 +146,29 @@ tracks/4/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/5/type = "audio"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("DeploySound")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_xfnww")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_xfnww")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_xfnww")
+}],
+"times": PackedFloat32Array(0, 0.25, 0.75)
+}
+tracks/5/use_blend = true
 
 [sub_resource type="Animation" id="Animation_oo75y"]
 resource_name = "shoot"
@@ -234,9 +258,12 @@ libraries = {
 wait_time = 0.5
 one_shot = true
 
+[node name="DeploySound" type="AudioStreamPlayer" parent="."]
+bus = &"gunsounds"
+
 [node name="ShootSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_1ps4v")
-bus = &"Noises"
+bus = &"gunsounds"
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 0

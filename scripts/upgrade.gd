@@ -1,25 +1,28 @@
 extends Area2D
 
+@export var collect_id: int
 @export var texture: Texture2D
 @export var upgrade: PackedScene
 var going_to_player = false
-var player
 
 func _ready():
+	if collect_id in Global.collected_upgrades: queue_free()
 	$Sprite2D.texture = texture
 
 func _process(delta):
 	$Background.rotation += delta
+	
 	if not going_to_player: return
-	global_position -= (global_position - player.global_position).normalized() * delta * 5000
-	if global_position.distance_squared_to(player.global_position) < 25000000 * delta * delta:
+	global_position -= (global_position - Global.Greg.global_position).normalized() * delta * 5000
+	if global_position.distance_squared_to(Global.Greg.global_position) < 25000000 * delta * delta:
 		queue_free()
-		player.get_parent().acquire_upgrade(upgrade)
+		Global.Greg.acquire_upgrade(upgrade)
+		Global.Greg.set_face(4)
 
 func _on_body_entered(body):
-	if body.name == 'Greg':
+	if body == Global.Greg:
 		$AnimationPlayer.play("collect")
-		player = body.get_node('Sprites')
+		$AudioStreamPlayer.play()
 		collision_mask = 0
 
 

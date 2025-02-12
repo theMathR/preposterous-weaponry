@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://du1i2h87r072t"]
+[gd_scene load_steps=9 format=3 uid="uid://du1i2h87r072t"]
 
 [ext_resource type="Script" path="res://scripts/upgrade.gd" id="1_vjusq"]
 [ext_resource type="Texture2D" uid="uid://bowckmrtohsk" path="res://assets/upgrades/barrel/icon.png" id="2_dwja2"]
 [ext_resource type="Texture2D" uid="uid://30vwqpvk8vua" path="res://assets/misc/upgrade.png" id="2_hombd"]
+[ext_resource type="AudioStream" uid="uid://ddgex35ye8yet" path="res://assets/upgrades/collect.mp3" id="4_n2ntk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0sgjp"]
 radius = 120.15
@@ -135,6 +136,9 @@ texture = ExtResource("2_dwja2")
 libraries = {
 "": SubResource("AnimationLibrary_6dyc8")
 }
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_n2ntk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
