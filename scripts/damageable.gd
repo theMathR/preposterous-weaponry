@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var hp = max_hp
 
 func damage(dmg: int):
+	if not hp: return
 	hp -= dmg
 	$Sprites.shake(dmg/float(max_hp)*50)
 	if hp <= 0:

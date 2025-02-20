@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://d1mse6mopmusv"]
+[gd_scene load_steps=27 format=4 uid="uid://d1mse6mopmusv"]
 
 [ext_resource type="Texture2D" uid="uid://hs2wi0mwyv0y" path="res://assets/tilemaps/pipes.png" id="1_kqehs"]
 [ext_resource type="Texture2D" uid="uid://dqnc3h83shsiw" path="res://assets/tilemaps/test.png" id="1_s7ee8"]
@@ -42,7 +42,7 @@ texture_region_size = Vector2i(256, 256)
 
 [sub_resource type="TileSet" id="TileSet_h2pyc"]
 tile_size = Vector2i(256, 256)
-physics_layer_0/collision_layer = 9
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_w0ecp")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_orsmt"]
@@ -62,6 +62,12 @@ shader_parameter/grayscale_color = Color(1, 1, 1, 1)
 shader_parameter/green_scale = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hp4y7"]
+resource_local_to_scene = true
+shader = ExtResource("8_1s5dx")
+shader_parameter/grayscale_color = Color(1, 1, 1, 1)
+shader_parameter/green_scale = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_veg2n"]
 resource_local_to_scene = true
 shader = ExtResource("8_1s5dx")
 shader_parameter/grayscale_color = Color(1, 1, 1, 1)
@@ -201,7 +207,7 @@ position = Vector2(896, 384)
 max_hp = 1
 
 [node name="Crate19" parent="Crates" instance=ExtResource("3_r8v72")]
-position = Vector2(896, 128)
+position = Vector2(768, 128)
 max_hp = 1
 
 [node name="Crate20" parent="Crates" instance=ExtResource("3_r8v72")]
@@ -232,7 +238,7 @@ reaction_time = 0.2
 damage = 3
 
 [node name="Joe5" parent="Node2D" instance=ExtResource("4_mr01q")]
-material = SubResource("ShaderMaterial_hp4y7")
+material = SubResource("ShaderMaterial_veg2n")
 position = Vector2(-5376, 2176)
 aiming_speed = 0.5
 reaction_time = 2.0

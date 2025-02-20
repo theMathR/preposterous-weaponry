@@ -1,0 +1,98 @@
+[gd_scene load_steps=15 format=3 uid="uid://cvd53d4v2bua5"]
+
+[ext_resource type="Script" path="res://scripts/upgrades/zapper.gd" id="1_h0xc5"]
+[ext_resource type="Texture2D" uid="uid://dfnxefwyfv0m7" path="res://assets/upgrades/zapper/zapper.png" id="2_iaqy3"]
+[ext_resource type="Texture2D" uid="uid://ccsljryu3quct" path="res://assets/upgrades/zapper/electricity.png" id="2_rly1f"]
+[ext_resource type="Shader" path="res://scenes/upgrades/zapper.gdshader" id="4_t2777"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qbunw"]
+atlas = ExtResource("2_rly1f")
+region = Rect2(0, 0, 46, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqne2"]
+atlas = ExtResource("2_rly1f")
+region = Rect2(46, 0, 46, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mu7bm"]
+atlas = ExtResource("2_rly1f")
+region = Rect2(92, 0, 46, 71)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bv7m2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qbunw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqne2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mu7bm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37fab"]
+atlas = ExtResource("2_iaqy3")
+region = Rect2(171, 29, 87, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pe1tc"]
+atlas = ExtResource("2_iaqy3")
+region = Rect2(175, 75, 82, 17)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i58b4"]
+shader = ExtResource("4_t2777")
+shader_parameter/activity = 1.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3awsd"]
+atlas = ExtResource("2_iaqy3")
+region = Rect2(10, 35, 27, 51)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugeyi"]
+atlas = ExtResource("2_iaqy3")
+region = Rect2(60, 25, 32, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phpga"]
+atlas = ExtResource("2_iaqy3")
+region = Rect2(121, 11, 36, 102)
+
+[node name="Barrel" type="Node2D"]
+use_parent_material = true
+script = ExtResource("1_h0xc5")
+height = 30.0
+damage = 2
+
+[node name="Electricity" type="AnimatedSprite2D" parent="."]
+position = Vector2(128, 1)
+sprite_frames = SubResource("SpriteFrames_bv7m2")
+frame_progress = 0.821266
+
+[node name="Arm1" type="Sprite2D" parent="."]
+position = Vector2(96, -19)
+texture = SubResource("AtlasTexture_37fab")
+
+[node name="Arm2" type="Sprite2D" parent="."]
+position = Vector2(96, 18)
+texture = SubResource("AtlasTexture_pe1tc")
+
+[node name="Body" type="Node2D" parent="."]
+material = SubResource("ShaderMaterial_i58b4")
+
+[node name="BodyA" type="Sprite2D" parent="Body"]
+use_parent_material = true
+position = Vector2(13, 0)
+texture = SubResource("AtlasTexture_3awsd")
+
+[node name="BodyB" type="Sprite2D" parent="Body"]
+use_parent_material = true
+position = Vector2(32, 2)
+texture = SubResource("AtlasTexture_ugeyi")
+
+[node name="BodyC" type="Sprite2D" parent="Body"]
+use_parent_material = true
+position = Vector2(55, 2)
+texture = SubResource("AtlasTexture_phpga")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

@@ -334,6 +334,7 @@ _data = {
 use_parent_material = true
 script = ExtResource("1_60enj")
 height = 30.0
+damage = 6
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_xagd0")

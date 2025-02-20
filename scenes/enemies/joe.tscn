@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://scripts/palette.gdshader" id="1_4ksq4"]
 [ext_resource type="Script" path="res://scripts/enemies/joe.gd" id="1_tf57d"]
 [ext_resource type="Texture2D" uid="uid://c52n2u1wjds2" path="res://assets/joe/heads.png" id="2_sx7ik"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://b41jkotvq3bis" path="res://scenes/animationtree.tres" id="3_5sp2r"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://b41jkotvq3bis" path="res://assets/animationtree.tres" id="3_5sp2r"]
 [ext_resource type="Texture2D" uid="uid://bvdkobcq2kj2g" path="res://assets/joe/dead.png" id="3_jluiv"]
 [ext_resource type="Texture2D" uid="uid://b3hcerw6o4nsd" path="res://assets/joe/body.png" id="3_vilj4"]
 [ext_resource type="Texture2D" uid="uid://pfhfx64m6rog" path="res://assets/joe/feet.png" id="4_uvdiv"]
@@ -265,7 +265,6 @@ offset = Vector2(70, 0)
 
 [node name="RayCast2D" type="RayCast2D" parent="Sprites"]
 target_position = Vector2(2343, 0)
-collision_mask = 10
 
 [node name="BlinkTimer" type="Timer" parent="."]
 wait_time = 0.1

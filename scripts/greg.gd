@@ -28,8 +28,6 @@ func _physics_process(delta):
 		$Sprites.scale.x *= -1
 		$Sprites/Feet.rotation *= -1
 	var walk = Input.get_axis("walk_left", "walk_right")
-	if Input.is_action_pressed("walk") and abs(mouse.x) > 150:
-		walk = sign(mouse.x) * min(1, abs(mouse.x/250))
 	$AnimationTree['parameters/movement/walk/direction/transition_request'] = 'forwards' if mouse.x * walk > 0 else 'backwards'
 	$AnimationTree["parameters/movement/land_walk/direction/transition_request"] = $AnimationTree['parameters/movement/walk/direction/transition_request']
 	if walk:
@@ -74,7 +72,7 @@ func _physics_process(delta):
 			$HitSound.pitch_scale = randf_range(0.8,1.2)
 			$HitSound.play()
 			velocity.x = collision_normal.x * SPEED
-			$Sprites/Armor.scale = Vector2.ONE + collision_normal/5 * Vector2($Sprites.scale.x,-0.5)
+			$Sprites/Armor.scale = Vector2.ONE + collision_normal/5 * Vector2(sign(walk),-0.5)
  
 	# To make the feet not go through the ground
 	# This was REALLY tough to get right :/
@@ -93,7 +91,7 @@ func _physics_process(delta):
 
 	# Feet follow speed
 	if not is_on_floor():
-		$Sprites/Feet.position.x = move_toward($Sprites/Feet.position.x, abs(velocity.x/SPEED*50),  delta*100)
+		$Sprites/Feet.position.x = move_toward($Sprites/Feet.position.x, $Sprites.scale.x*walk*50,  delta*100)
 	else:
 		$Sprites/Feet.position.x = move_toward($Sprites/Feet.position.x, 0,  delta*SPEED/2)
 
@@ -105,17 +103,16 @@ func _physics_process(delta):
 	
 	was_on_floor = is_on_floor()
 
-# Shoot da guns!
-func _input(event: InputEvent) -> void:
-	if event is not InputEventKey: return
-	var triggered = Global.upgrades_keybinds.find(event.physical_keycode)
-	if triggered == -1: return
-	var part = $Sprites/Gun/Sprite2D.get_child(triggered+2)
-	if not part is GunPart: return
-	if event.pressed:
-		part.shoot()
+	# Shoot da guns!
+	if Input.is_action_pressed("shoot"):
+		for part in $Sprites/Gun/Sprite2D.get_children():
+			if part is not GunPart: continue
+			part.shoot()
 		set_face(2)
-	else: part.release()
+	elif Input.is_action_just_released("shoot"):
+		for part in $Sprites/Gun/Sprite2D.get_children():
+			if part is not GunPart: continue
+			part.release()
 		
 
 func acquire_upgrade(upgrade: PackedScene):
@@ -136,8 +133,6 @@ func acquire_upgrade(upgrade: PackedScene):
 	$Sprites/Gun/Sprite2D.add_child(part)
 	if direction == 0:
 		$Sprites/Gun/Sprite2D.move_child(part, 2)
-	
-	Global.upgrades_keybinds.append(Global.upgrades_keybinds[-1]+1)
 	
 	part.get_node('AnimationPlayer').play('deploy')
 	$AcquireSound.play()

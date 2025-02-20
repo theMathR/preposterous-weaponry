@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://byyleax3b0fm4" path="res://assets/greg/jump.mp3" id="3_qtrna"]
 [ext_resource type="Texture2D" uid="uid://dvdkcjnstajur" path="res://assets/greg/heads.png" id="4_47s0o"]
 [ext_resource type="AudioStream" uid="uid://bn4uonh0v73qr" path="res://assets/greg/step.mp3" id="4_c217s"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://b41jkotvq3bis" path="res://scenes/animationtree.tres" id="4_e5y2y"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://b41jkotvq3bis" path="res://assets/animationtree.tres" id="4_e5y2y"]
 [ext_resource type="Texture2D" uid="uid://cyt7x4a4ajos" path="res://assets/greg/springs.png" id="5_suhpd"]
 [ext_resource type="Script" path="res://scripts/spring.gd" id="7_r0prd"]
 [ext_resource type="Texture2D" uid="uid://cmtgw15n4d5v7" path="res://assets/greg/armor.png" id="7_xtaie"]
