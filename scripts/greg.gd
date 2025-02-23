@@ -129,12 +129,12 @@ func acquire_upgrade(upgrade: PackedScene):
 	part.position.y = support_part.position.y + (randf_range(-support_part.height, -support_part.height*3/4) if direction else randf_range(support_part.height*3/4, support_part.height)) + (randf_range(-part.height, 0) if direction else randf_range(0, part.height))
 	
 	part.wielder = self
-	part.hide()
+	
 	$Sprites/Gun/Sprite2D.add_child(part)
 	if direction == 0:
 		$Sprites/Gun/Sprite2D.move_child(part, 2)
 	
-	part.get_node('AnimationPlayer').play('deploy')
+	part.deploy()
 	$AcquireSound.play()
 
 

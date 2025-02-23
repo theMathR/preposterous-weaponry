@@ -12,3 +12,10 @@ func hit(target: Node) -> void:
 
 func shoot() -> void: pass
 func release() -> void: pass
+
+func deploy():
+	hide()
+	$AnimationPlayer.play('deploy')
+
+func knock_back(x := 1):
+	wielder.knockback += x
