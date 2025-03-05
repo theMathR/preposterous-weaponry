@@ -21,10 +21,13 @@ Global="*res://scripts/global.gd"
 
 [display]
 
+window/size/viewport_width=1150
+window/size/viewport_height=650
 window/stretch/mode="canvas_items"
 
 [editor]
 
+movie_writer/movie_file="/home/mathr/preposterous-weaponry/movie.avi"
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
