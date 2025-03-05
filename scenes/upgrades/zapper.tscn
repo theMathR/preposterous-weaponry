@@ -667,7 +667,7 @@ advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/deploy = false
 
-[node name="Zap" type="Sprite2D" parent="." node_paths=PackedStringArray("to")]
+[node name="Zap" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(127, 0)
 rotation = -1.30988
@@ -676,7 +676,6 @@ texture = SubResource("AtlasTexture_c816d")
 offset = Vector2(0, 178)
 region_rect = Rect2(0, 0, 110, 357)
 script = ExtResource("6_4tuqj")
-to = NodePath("")
 
 [node name="Area2D" type="Area2D" parent="."]
 

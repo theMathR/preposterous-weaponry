@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dxy820w6p1l5t" path="res://assets/upgrades/shotgun/icon.png" id="10_qkocq"]
 [ext_resource type="Texture2D" uid="uid://c8sb4mnqpshr2" path="res://assets/upgrades/knockback/icon.png" id="10_sx6du"]
 [ext_resource type="PackedScene" uid="uid://cqtgt0tl4v63v" path="res://scenes/upgrades/knockback.tscn" id="11_nucsb"]
-[ext_resource type="Texture2D" uid="uid://dfnxefwyfv0m7" path="res://assets/upgrades/zapper/zapper.png" id="12_4gbdh"]
+[ext_resource type="Texture2D" uid="uid://ficv5n46vxwd" path="res://assets/upgrades/zapper/icon.png" id="12_4i0qw"]
 [ext_resource type="Texture2D" uid="uid://cp70fdj7ec34m" path="res://assets/upgrades/punch/icon.png" id="12_y3ine"]
 [ext_resource type="PackedScene" uid="uid://cvd53d4v2bua5" path="res://scenes/upgrades/zapper.tscn" id="13_h22u2"]
 [ext_resource type="PackedScene" uid="uid://xnt1sckefvoc" path="res://scenes/upgrades/shotgun.tscn" id="13_x2slc"]
@@ -138,9 +138,9 @@ texture = ExtResource("12_y3ine")
 upgrade = ExtResource("9_dsdtt")
 
 [node name="Upgrade8" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(3328, 384)
+position = Vector2(-3840, -1024)
 collect_id = 64
-texture = ExtResource("12_4gbdh")
+texture = ExtResource("12_4i0qw")
 upgrade = ExtResource("13_h22u2")
 
 [node name="Crates" type="Node2D" parent="."]
