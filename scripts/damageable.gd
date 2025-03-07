@@ -1,17 +1,20 @@
 class_name Damageable
 extends CharacterBody2D
 
-@export var max_hp: int = 3
+@export var max_hp: float = 3
 @export var death_texture: Texture2D
 @onready var hp = max_hp
 
-func damage(dmg: int):
+func damage(dmg: float):
 	if not hp: return
 	hp -= dmg
-	$Sprites.shake(dmg/float(max_hp)*50)
+	$Sprites.shake(dmg/max_hp*50)
 	if hp <= 0:
 		hp = 0
 		die()
+
+func heal(dmg: float):
+	hp = clamp(hp + dmg, 0, max_hp)
 
 func die():
 	Global.shake_screen(50)

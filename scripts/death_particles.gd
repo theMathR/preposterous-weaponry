@@ -1,11 +1,15 @@
-extends GPUParticles2D
+extends Sprite2D
 
-func _ready() -> void:
-	restart()
+var velocity: Vector2
 
 func set_texture_and_material(new_texture, new_material):
-	$SubViewport/Sprite2D.material = new_material
-	$SubViewport/Sprite2D.texture = new_texture
+	material = new_material
+	texture = new_texture
+	velocity.x = randf_range(-50,50)
+	velocity.y = -5000
 
-func _on_finished() -> void:
-	queue_free()
+func _process(delta: float) -> void:
+	position += velocity * delta
+	velocity.y += 18000 * delta
+	if Global.Greg.global_position.y - global_position.y < -1500:
+		queue_free()

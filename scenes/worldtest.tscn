@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=4 uid="uid://d1mse6mopmusv"]
+[gd_scene load_steps=30 format=4 uid="uid://d1mse6mopmusv"]
 
 [ext_resource type="Texture2D" uid="uid://hs2wi0mwyv0y" path="res://assets/tilemaps/pipes.png" id="1_kqehs"]
 [ext_resource type="Texture2D" uid="uid://dqnc3h83shsiw" path="res://assets/tilemaps/test.png" id="1_s7ee8"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://cp70fdj7ec34m" path="res://assets/upgrades/punch/icon.png" id="12_y3ine"]
 [ext_resource type="PackedScene" uid="uid://cvd53d4v2bua5" path="res://scenes/upgrades/zapper.tscn" id="13_h22u2"]
 [ext_resource type="PackedScene" uid="uid://xnt1sckefvoc" path="res://scenes/upgrades/shotgun.tscn" id="13_x2slc"]
+[ext_resource type="PackedScene" uid="uid://ci4ctuxa0kcam" path="res://scenes/enemies/bill.tscn" id="18_dlmji"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_k8urv"]
 texture = ExtResource("1_kqehs")
@@ -90,7 +91,7 @@ tile_map_data = PackedByteArray("AABiAAoAAAAAAAAAAABiAA4AAAAAAAAAAABiAA8AAAAAAAA
 tile_set = SubResource("TileSet_cfotn")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAIAAAABAAAAAAABAAIAAAABAAAAAAACAAIAAAABAAAAAAADAAIAAAABAAAAAAAEAAIAAAABAAAAAAAFAAIAAAABAAAAAAD//wIAAAABAAAAAAD+/wIAAAABAAAAAAADAP//AAABAAAAAAADAP7/AAABAAAAAAD+/wEAAAABAAAAAAD8/wIAAAABAAAAAAD8/wEAAAABAAAAAAD8/wAAAAABAAAAAAD7/wIAAAABAAAAAAD6/wIAAAABAAAAAAD6/wEAAAABAAAAAAD6/wAAAAABAAAAAAD6////AAABAAAAAAD5/wIAAAABAAAAAAD4/wIAAAABAAAAAAD4/wEAAAABAAAAAAD4/wAAAAABAAAAAAD4////AAABAAAAAAD4//7/AAABAAAAAAD3/wIAAAABAAAAAAD2/wIAAAABAAAAAAAEAP//AAABAAAAAAAFAP//AAABAAAAAAAGAP//AAABAAAAAAAGAAIAAAABAAAAAAAHAAIAAAABAAAAAAAIAAIAAAABAAAAAAAJAAIAAAABAAAAAAAJAP//AAABAAAAAAAJAP7/AAABAAAAAAAJAP3/AAABAAAAAAAJAPz/AAABAAAAAAAJAPv/AAABAAAAAAAJAPr/AAABAAAAAAAJAPn/AAABAAAAAAAIAPn/AAABAAAAAAAHAPn/AAABAAAAAAAGAPn/AAABAAAAAAAFAPn/AAABAAAAAAAEAPn/AAABAAAAAAAEAPj/AAABAAAAAAADAPj/AAABAAAAAAADAPn/AAABAAAAAAAFAP7/AAABAAAAAAAFAP3/AAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAD//wkAAAABAAAAAAD+/wkAAAABAAAAAAD9/wkAAAABAAAAAAD8/wkAAAABAAAAAAD7/wkAAAABAAAAAAD6/wkAAAABAAAAAAD5/wkAAAABAAAAAAD4/wkAAAABAAAAAAD3/wkAAAABAAAAAAD2/wkAAAABAAAAAAD1/wkAAAABAAAAAAD0/wkAAAABAAAAAADz/wkAAAABAAAAAADy/wkAAAABAAAAAADx/wkAAAABAAAAAADw/wkAAAABAAAAAADv/wkAAAABAAAAAADu/wkAAAABAAAAAADt/wkAAAABAAAAAADs/wkAAAABAAAAAADr/wkAAAABAAAAAADq/wkAAAABAAAAAADp/wkAAAABAAAAAADp/wgAAAABAAAAAADp/wcAAAABAAAAAADp/wYAAAABAAAAAADp/wUAAAABAAAAAADp/wQAAAABAAAAAADp/wMAAAABAAAAAADp/wIAAAABAAAAAADp/wEAAAABAAAAAADq/wUAAAABAAAAAADr/wUAAAABAAAAAADs/wYAAAABAAAAAADt/wIAAAABAAAAAADu/wIAAAABAAAAAADx/wAAAAABAAAAAADy/wAAAAABAAAAAAAKAAIAAAABAAAAAAALAAIAAAABAAAAAAAMAAIAAAABAAAAAAANAAIAAAABAAAAAAAKAP//AAABAAAAAAALAP//AAABAAAAAAAOAAIAAAABAAAAAAAPAAIAAAABAAAAAAAQAAIAAAABAAAAAAAPAP//AAABAAAAAAAQAP//AAABAAAAAAARAAIAAAABAAAAAAARAAEAAAABAAAAAAARAAAAAAABAAAAAAARAP//AAABAAAAAAARAP7/AAABAAAAAAARAP3/AAABAAAAAAASAP3/AAABAAAAAAASAPz/AAABAAAAAAATAPz/AAABAAAAAAANAAEAAAACAAAAABAOAAAAAAACAAAAABAOAAEAAAABAAAAAAAPAAEAAAABAAAAAAAQAAEAAAABAAAAAAAQAAAAAAABAAAAAAAPAAAAAAABAAAAAAAMAP//AAACAAAAAFDp/wAAAAACAAAAAADo/wAAAAACAAAAAADo////AAACAAAAAADn//7/AAACAAAAAADm//7/AAACAAAAAADm//3/AAACAAAAAADl//z/AAACAAAAAADl//3/AAACAAAAAADm////AAACAAAAAADn////AAACAAAAAADn/wAAAAACAAAAAADm/wAAAAACAAAAAADl//7/AAACAAAAAADl////AAACAAAAAADl/wAAAAACAAAAAAD7////AAADAAAAAAD8////AAAEAAAAAAD5//7/AAADAAAAAAD6//7/AAAEAAAAAAATAPv/AAABAAAAAAAUAPv/AAABAAAAAAAUAPr/AAABAAAAAAAVAPr/AAABAAAAAAAVAPn/AAABAAAAAAAWAPj/AAABAAAAAAAWAPn/AAABAAAAAAAXAPj/AAABAAAAAAAXAPf/AAABAAAAAAAYAPf/AAABAAAAAAAYAPb/AAABAAAAAAAZAPb/AAABAAAAAAAaAPb/AAABAAAAAAAbAPb/AAABAAAAAAAcAPb/AAABAAAAAAAdAPb/AAABAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAIAAAABAAAAAAABAAIAAAABAAAAAAACAAIAAAABAAAAAAADAAIAAAABAAAAAAAEAAIAAAABAAAAAAAFAAIAAAABAAAAAAD//wIAAAABAAAAAAD+/wIAAAABAAAAAAADAP//AAABAAAAAAADAP7/AAABAAAAAAD+/wEAAAABAAAAAAD8/wIAAAABAAAAAAD8/wEAAAABAAAAAAD8/wAAAAABAAAAAAD7/wIAAAABAAAAAAD6/wIAAAABAAAAAAD6/wEAAAABAAAAAAD6/wAAAAABAAAAAAD6////AAABAAAAAAD5/wIAAAABAAAAAAD4/wIAAAABAAAAAAD4/wEAAAABAAAAAAD4/wAAAAABAAAAAAD4////AAABAAAAAAD4//7/AAABAAAAAAD3/wIAAAABAAAAAAD2/wIAAAABAAAAAAAEAP//AAABAAAAAAAFAP//AAABAAAAAAAGAAIAAAABAAAAAAAHAAIAAAABAAAAAAAIAAIAAAABAAAAAAAJAAIAAAABAAAAAAAJAP//AAABAAAAAAAJAP7/AAABAAAAAAAJAP3/AAABAAAAAAAJAPz/AAABAAAAAAAJAPv/AAABAAAAAAAJAPr/AAABAAAAAAAJAPn/AAABAAAAAAAIAPn/AAABAAAAAAAHAPn/AAABAAAAAAAGAPn/AAABAAAAAAAFAPn/AAABAAAAAAAEAPn/AAABAAAAAAAEAPj/AAABAAAAAAADAPj/AAABAAAAAAADAPn/AAABAAAAAAAFAP7/AAABAAAAAAAFAP3/AAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAD//wkAAAABAAAAAAD+/wkAAAABAAAAAAD9/wkAAAABAAAAAAD8/wkAAAABAAAAAAD7/wkAAAABAAAAAAD6/wkAAAABAAAAAAD5/wkAAAABAAAAAAD4/wkAAAABAAAAAAD3/wkAAAABAAAAAAD2/wkAAAABAAAAAAD1/wkAAAABAAAAAAD0/wkAAAABAAAAAADz/wkAAAABAAAAAADy/wkAAAABAAAAAADx/wkAAAABAAAAAADw/wkAAAABAAAAAADv/wkAAAABAAAAAADu/wkAAAABAAAAAADt/wkAAAABAAAAAADs/wkAAAABAAAAAADr/wkAAAABAAAAAADq/wkAAAABAAAAAADp/wkAAAABAAAAAADp/wgAAAABAAAAAADp/wcAAAABAAAAAADp/wYAAAABAAAAAADp/wUAAAABAAAAAADp/wQAAAABAAAAAADp/wMAAAABAAAAAADp/wIAAAABAAAAAADp/wEAAAABAAAAAADq/wUAAAABAAAAAADr/wUAAAABAAAAAADs/wYAAAABAAAAAADt/wIAAAABAAAAAADu/wIAAAABAAAAAADx/wAAAAABAAAAAADy/wAAAAABAAAAAAAKAAIAAAABAAAAAAALAAIAAAABAAAAAAAMAAIAAAABAAAAAAANAAIAAAABAAAAAAAKAP//AAABAAAAAAALAP//AAABAAAAAAAOAAIAAAABAAAAAAAPAAIAAAABAAAAAAAQAAIAAAABAAAAAAAPAP//AAABAAAAAAAQAP//AAABAAAAAAARAAIAAAABAAAAAAARAAEAAAABAAAAAAARAAAAAAABAAAAAAARAP//AAABAAAAAAARAP7/AAABAAAAAAARAP3/AAABAAAAAAASAP3/AAABAAAAAAASAPz/AAABAAAAAAATAPz/AAABAAAAAAANAAEAAAACAAAAABAOAAAAAAACAAAAABAOAAEAAAABAAAAAAAPAAEAAAABAAAAAAAQAAEAAAABAAAAAAAQAAAAAAABAAAAAAAPAAAAAAABAAAAAAAMAP//AAACAAAAAFDp/wAAAAACAAAAAADo/wAAAAACAAAAAADo////AAACAAAAAADn//7/AAACAAAAAADm//7/AAACAAAAAADm//3/AAACAAAAAADl//z/AAACAAAAAADl//3/AAACAAAAAADm////AAACAAAAAADn////AAACAAAAAADn/wAAAAACAAAAAADm/wAAAAACAAAAAADl//7/AAACAAAAAADl////AAACAAAAAADl/wAAAAACAAAAAAD7////AAADAAAAAAD8////AAAEAAAAAAD5//7/AAADAAAAAAD6//7/AAAEAAAAAAATAPv/AAABAAAAAAAUAPv/AAABAAAAAAAUAPr/AAABAAAAAAAVAPr/AAABAAAAAAAVAPn/AAABAAAAAAAWAPj/AAABAAAAAAAWAPn/AAABAAAAAAAXAPj/AAABAAAAAAAXAPf/AAABAAAAAAAYAPf/AAABAAAAAAAYAPb/AAABAAAAAAAZAPb/AAABAAAAAAAaAPb/AAABAAAAAAAbAPb/AAABAAAAAAAcAPb/AAABAAAAAAAdAPb/AAABAAAAAAA=")
 tile_set = SubResource("TileSet_h2pyc")
 
 [node name="Upgrades" type="Node2D" parent="."]
@@ -109,7 +110,37 @@ texture = ExtResource("10_sx6du")
 upgrade = ExtResource("11_nucsb")
 
 [node name="Upgrade" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(3968, -384)
+position = Vector2(3200, 384)
+texture = ExtResource("8_qbos2")
+upgrade = ExtResource("10_he51w")
+
+[node name="Upgrade9" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(3200, 128)
+texture = ExtResource("8_qbos2")
+upgrade = ExtResource("10_he51w")
+
+[node name="Upgrade10" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(3200, -256)
+texture = ExtResource("8_qbos2")
+upgrade = ExtResource("10_he51w")
+
+[node name="Upgrade11" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(2944, 0)
+texture = ExtResource("8_qbos2")
+upgrade = ExtResource("10_he51w")
+
+[node name="Upgrade12" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(2816, -768)
+texture = ExtResource("8_qbos2")
+upgrade = ExtResource("10_he51w")
+
+[node name="Upgrade13" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(2816, -384)
+texture = ExtResource("8_qbos2")
+upgrade = ExtResource("10_he51w")
+
+[node name="Upgrade14" parent="Upgrades" instance=ExtResource("4_2rfxt")]
+position = Vector2(2688, 128)
 texture = ExtResource("8_qbos2")
 upgrade = ExtResource("10_he51w")
 
@@ -147,80 +178,61 @@ upgrade = ExtResource("13_h22u2")
 
 [node name="Crate" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-2816, 1920)
-max_hp = 10
 
 [node name="Crate2" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-2816, 2176)
-max_hp = 10
 
 [node name="Crate3" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3072, 2176)
-max_hp = 10
 
 [node name="Crate4" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3328, 2176)
-max_hp = 10
 
 [node name="Crate5" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3328, 1920)
-max_hp = 10
 
 [node name="Crate6" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3584, 1664)
-max_hp = 10
 
 [node name="Crate7" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3584, 1920)
-max_hp = 10
 
 [node name="Crate8" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3584, 2176)
-max_hp = 10
 
 [node name="Crate9" parent="Crates" instance=ExtResource("3_r8v72")]
 material = SubResource("ShaderMaterial_orsmt")
 position = Vector2(-3328, 1664)
-max_hp = 200
 
 [node name="Crate10" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3072, 1664)
-max_hp = 10
 
 [node name="Crate11" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3072, 1920)
-max_hp = 10
 
 [node name="Crate12" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-2816, 1664)
-max_hp = 10
 
 [node name="Crate13" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-2816, 1408)
-max_hp = 10
 
 [node name="Crate14" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3072, 1408)
-max_hp = 10
 
 [node name="Crate15" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3328, 1408)
-max_hp = 10
 
 [node name="Crate16" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-3584, 1408)
-max_hp = 10
 
 [node name="Crate18" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(896, 384)
-max_hp = 1
 
 [node name="Crate19" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(768, 128)
-max_hp = 1
 
 [node name="Crate20" parent="Crates" instance=ExtResource("3_r8v72")]
 position = Vector2(-384, -256)
-max_hp = 1
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -228,12 +240,14 @@ max_hp = 1
 material = SubResource("ShaderMaterial_5p1ot")
 position = Vector2(1408, -896)
 reaction_time = 0.0
+max_hp = 3.0
 
 [node name="Barrel" parent="Node2D/Joe" instance=ExtResource("10_he51w")]
 
 [node name="Joe2" parent="Node2D" instance=ExtResource("4_mr01q")]
 material = SubResource("ShaderMaterial_ev4gw")
 position = Vector2(-1280, -512)
+max_hp = 3.0
 
 [node name="Punch" parent="Node2D/Joe2" instance=ExtResource("9_dsdtt")]
 
@@ -241,6 +255,7 @@ position = Vector2(-1280, -512)
 material = SubResource("ShaderMaterial_hp4y7")
 position = Vector2(7296, -2688)
 reaction_time = 0.2
+max_hp = 3.0
 
 [node name="Shotgun" parent="Node2D/Joe3" instance=ExtResource("13_x2slc")]
 damage = 3
@@ -250,6 +265,7 @@ material = SubResource("ShaderMaterial_veg2n")
 position = Vector2(-5376, 2176)
 aiming_speed = 0.5
 reaction_time = 2.0
+max_hp = 3.0
 
 [node name="Barrel" parent="Node2D/Joe5" instance=ExtResource("10_he51w")]
 
@@ -257,9 +273,13 @@ reaction_time = 2.0
 material = SubResource("ShaderMaterial_iri0s")
 position = Vector2(7296, -2944)
 reaction_time = 0.2
+max_hp = 3.0
 
 [node name="Shotgun" parent="Node2D/Joe4" instance=ExtResource("13_x2slc")]
 damage = 3
+
+[node name="Bill" parent="Node2D" instance=ExtResource("18_dlmji")]
+position = Vector2(1920, 128)
 
 [node name="Checkpoint" parent="." instance=ExtResource("10_n1hag")]
 position = Vector2(1152, 512)

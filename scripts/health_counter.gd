@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 	if not shake_value: return
 	shake_value = move_toward(shake_value, 0, delta*shake_value*4)
 	if shake_value < 0.01: shake_value = 0
-	position = Vector2.from_angle(noise.get_noise_1d(Time.get_ticks_msec()/5)*PI) * min(100, shake_value * strenght)
+	position = Vector2.from_angle(noise.get_noise_1d(Time.get_ticks_msec()/5.)*PI) * min(100, shake_value * strenght)
 
 func shake(val):
 	shake_value += val

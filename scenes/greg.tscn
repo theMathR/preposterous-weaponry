@@ -646,7 +646,6 @@ floor_constant_speed = true
 floor_snap_length = 50.0
 safe_margin = 2.0
 script = ExtResource("1_0qswn")
-max_hp = 20
 death_texture = ExtResource("2_0v7pw")
 
 [node name="CoyoteTime" type="Timer" parent="."]

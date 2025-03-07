@@ -1,35 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4tpjhc111uaw"]
+[gd_scene load_steps=2 format=3 uid="uid://b4tpjhc111uaw"]
 
-[ext_resource type="Texture2D" uid="uid://bvdkobcq2kj2g" path="res://assets/joe/dead.png" id="2_5hub6"]
 [ext_resource type="Script" path="res://scripts/death_particles.gd" id="2_u6dfc"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cs3x4"]
-particle_flag_disable_z = true
-direction = Vector3(0, -1, 0)
-spread = 15.0
-initial_velocity_min = 2000.0
-initial_velocity_max = 4000.0
-gravity = Vector3(0, 9800, 0)
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_20s6t"]
-viewport_path = NodePath("SubViewport")
-
-[node name="DeathParticles" type="GPUParticles2D"]
-emitting = false
-amount = 1
-process_material = SubResource("ParticleProcessMaterial_cs3x4")
-texture = SubResource("ViewportTexture_20s6t")
-lifetime = 5.0
-one_shot = true
+[node name="DeathParticles" type="Sprite2D"]
 script = ExtResource("2_u6dfc")
-
-[node name="SubViewport" type="SubViewport" parent="."]
-transparent_bg = true
-canvas_item_default_texture_filter = 0
-gui_disable_input = true
-
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport"]
-position = Vector2(256, 256)
-texture = ExtResource("2_5hub6")
-
-[connection signal="finished" from="." to="." method="_on_finished"]
