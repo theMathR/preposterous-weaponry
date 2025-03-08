@@ -10,6 +10,6 @@ func set_texture_and_material(new_texture, new_material):
 
 func _process(delta: float) -> void:
 	position += velocity * delta
-	velocity.y += 18000 * delta
+	if velocity.y<100000: velocity.y += 18000 * delta
 	if Global.Greg.global_position.y - global_position.y < -1500:
 		queue_free()

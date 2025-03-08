@@ -13,11 +13,3 @@ func hit_target():
 		var target = targets.pick_random()
 		hit(target)
 		$Zap.to = target
-
-func shoot():
-	shooting = true
-func release():
-	shooting = false
-
-func deploy():
-	$AnimationTree['parameters/conditions/deploy'] = true

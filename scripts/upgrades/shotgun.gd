@@ -8,3 +8,7 @@ func shoot():
 	$AnimationPlayer.play("shoot")
 	for body in $Area2D.get_overlapping_bodies():
 		hit(body)
+
+func deploy():
+	hide()
+	$AnimationPlayer.play('deploy')

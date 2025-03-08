@@ -11,3 +11,7 @@ func shoot():
 	wielder.knockback += 1
 	$AnimationPlayer.play("shoot")
 	hit($RayCast2D.get_collider())
+
+func deploy():
+	hide()
+	$AnimationPlayer.play('deploy')
