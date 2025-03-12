@@ -2,7 +2,7 @@ extends Node2D
 class_name GunPart
 
 @export var height: float
-@export var damage: int = 1
+@export var damage: float = 1
 var wielder
 var shooting
 
@@ -17,6 +17,7 @@ func release():
 	shooting = false
 
 func deploy():
+	hide()
 	$AnimationTree['parameters/conditions/deploy'] = true
 
 func knock_back(x := 1):

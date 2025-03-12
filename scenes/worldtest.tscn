@@ -1,21 +1,17 @@
-[gd_scene load_steps=30 format=4 uid="uid://d1mse6mopmusv"]
+[gd_scene load_steps=26 format=4 uid="uid://d1mse6mopmusv"]
 
 [ext_resource type="Texture2D" uid="uid://hs2wi0mwyv0y" path="res://assets/tilemaps/pipes.png" id="1_kqehs"]
 [ext_resource type="Texture2D" uid="uid://dqnc3h83shsiw" path="res://assets/tilemaps/test.png" id="1_s7ee8"]
 [ext_resource type="Shader" path="res://scripts/crate.gdshader" id="3_6en7a"]
 [ext_resource type="PackedScene" uid="uid://cm8o1j0uu0yqu" path="res://scenes/crate.tscn" id="3_r8v72"]
 [ext_resource type="PackedScene" uid="uid://du1i2h87r072t" path="res://scenes/upgrades/upgrade.tscn" id="4_2rfxt"]
+[ext_resource type="Texture2D" uid="uid://do64t6q1smiuf" path="res://assets/upgrades/flamethrower/bluefire.png" id="4_kpeau"]
 [ext_resource type="PackedScene" uid="uid://bjao8wrwrikla" path="res://scenes/enemies/joe.tscn" id="4_mr01q"]
+[ext_resource type="PackedScene" uid="uid://dymtsvgytsjaa" path="res://scenes/upgrades/flamethrower.tscn" id="5_laitv"]
 [ext_resource type="Shader" path="res://scripts/palette.gdshader" id="8_1s5dx"]
-[ext_resource type="Texture2D" uid="uid://bowckmrtohsk" path="res://assets/upgrades/barrel/icon.png" id="8_qbos2"]
 [ext_resource type="PackedScene" uid="uid://b5jxm8d5vfeny" path="res://scenes/upgrades/punch.tscn" id="9_dsdtt"]
 [ext_resource type="PackedScene" uid="uid://bkv54qk1lefm1" path="res://scenes/upgrades/barrel.tscn" id="10_he51w"]
 [ext_resource type="PackedScene" uid="uid://bvwj77ru2na27" path="res://scenes/checkpoint.tscn" id="10_n1hag"]
-[ext_resource type="Texture2D" uid="uid://dxy820w6p1l5t" path="res://assets/upgrades/shotgun/icon.png" id="10_qkocq"]
-[ext_resource type="Texture2D" uid="uid://c8sb4mnqpshr2" path="res://assets/upgrades/knockback/icon.png" id="10_sx6du"]
-[ext_resource type="PackedScene" uid="uid://cqtgt0tl4v63v" path="res://scenes/upgrades/knockback.tscn" id="11_nucsb"]
-[ext_resource type="Texture2D" uid="uid://ficv5n46vxwd" path="res://assets/upgrades/zapper/icon.png" id="12_4i0qw"]
-[ext_resource type="Texture2D" uid="uid://cp70fdj7ec34m" path="res://assets/upgrades/punch/icon.png" id="12_y3ine"]
 [ext_resource type="PackedScene" uid="uid://cvd53d4v2bua5" path="res://scenes/upgrades/zapper.tscn" id="13_h22u2"]
 [ext_resource type="PackedScene" uid="uid://xnt1sckefvoc" path="res://scenes/upgrades/shotgun.tscn" id="13_x2slc"]
 [ext_resource type="PackedScene" uid="uid://ci4ctuxa0kcam" path="res://scenes/enemies/bill.tscn" id="18_dlmji"]
@@ -45,7 +41,7 @@ texture_region_size = Vector2i(256, 256)
 
 [sub_resource type="TileSet" id="TileSet_h2pyc"]
 tile_size = Vector2i(256, 256)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 9
 sources/0 = SubResource("TileSetAtlasSource_w0ecp")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_orsmt"]
@@ -91,87 +87,20 @@ tile_map_data = PackedByteArray("AABiAAoAAAAAAAAAAABiAA4AAAAAAAAAAABiAA8AAAAAAAA
 tile_set = SubResource("TileSet_cfotn")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAIAAAABAAAAAAABAAIAAAABAAAAAAACAAIAAAABAAAAAAADAAIAAAABAAAAAAAEAAIAAAABAAAAAAAFAAIAAAABAAAAAAD//wIAAAABAAAAAAD+/wIAAAABAAAAAAADAP//AAABAAAAAAADAP7/AAABAAAAAAD+/wEAAAABAAAAAAD8/wIAAAABAAAAAAD8/wEAAAABAAAAAAD8/wAAAAABAAAAAAD7/wIAAAABAAAAAAD6/wIAAAABAAAAAAD6/wEAAAABAAAAAAD6/wAAAAABAAAAAAD6////AAABAAAAAAD5/wIAAAABAAAAAAD4/wIAAAABAAAAAAD4/wEAAAABAAAAAAD4/wAAAAABAAAAAAD4////AAABAAAAAAD4//7/AAABAAAAAAD3/wIAAAABAAAAAAD2/wIAAAABAAAAAAAEAP//AAABAAAAAAAFAP//AAABAAAAAAAGAAIAAAABAAAAAAAHAAIAAAABAAAAAAAIAAIAAAABAAAAAAAJAAIAAAABAAAAAAAJAP//AAABAAAAAAAJAP7/AAABAAAAAAAJAP3/AAABAAAAAAAJAPz/AAABAAAAAAAJAPv/AAABAAAAAAAJAPr/AAABAAAAAAAJAPn/AAABAAAAAAAIAPn/AAABAAAAAAAHAPn/AAABAAAAAAAGAPn/AAABAAAAAAAFAPn/AAABAAAAAAAEAPn/AAABAAAAAAAEAPj/AAABAAAAAAADAPj/AAABAAAAAAADAPn/AAABAAAAAAAFAP7/AAABAAAAAAAFAP3/AAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAD//wkAAAABAAAAAAD+/wkAAAABAAAAAAD9/wkAAAABAAAAAAD8/wkAAAABAAAAAAD7/wkAAAABAAAAAAD6/wkAAAABAAAAAAD5/wkAAAABAAAAAAD4/wkAAAABAAAAAAD3/wkAAAABAAAAAAD2/wkAAAABAAAAAAD1/wkAAAABAAAAAAD0/wkAAAABAAAAAADz/wkAAAABAAAAAADy/wkAAAABAAAAAADx/wkAAAABAAAAAADw/wkAAAABAAAAAADv/wkAAAABAAAAAADu/wkAAAABAAAAAADt/wkAAAABAAAAAADs/wkAAAABAAAAAADr/wkAAAABAAAAAADq/wkAAAABAAAAAADp/wkAAAABAAAAAADp/wgAAAABAAAAAADp/wcAAAABAAAAAADp/wYAAAABAAAAAADp/wUAAAABAAAAAADp/wQAAAABAAAAAADp/wMAAAABAAAAAADp/wIAAAABAAAAAADp/wEAAAABAAAAAADq/wUAAAABAAAAAADr/wUAAAABAAAAAADs/wYAAAABAAAAAADt/wIAAAABAAAAAADu/wIAAAABAAAAAADx/wAAAAABAAAAAADy/wAAAAABAAAAAAAKAAIAAAABAAAAAAALAAIAAAABAAAAAAAMAAIAAAABAAAAAAANAAIAAAABAAAAAAAKAP//AAABAAAAAAALAP//AAABAAAAAAAOAAIAAAABAAAAAAAPAAIAAAABAAAAAAAQAAIAAAABAAAAAAAPAP//AAABAAAAAAAQAP//AAABAAAAAAARAAIAAAABAAAAAAARAAEAAAABAAAAAAARAAAAAAABAAAAAAARAP//AAABAAAAAAARAP7/AAABAAAAAAARAP3/AAABAAAAAAASAP3/AAABAAAAAAASAPz/AAABAAAAAAATAPz/AAABAAAAAAANAAEAAAACAAAAABAOAAAAAAACAAAAABAOAAEAAAABAAAAAAAPAAEAAAABAAAAAAAQAAEAAAABAAAAAAAQAAAAAAABAAAAAAAPAAAAAAABAAAAAAAMAP//AAACAAAAAFDp/wAAAAACAAAAAADo/wAAAAACAAAAAADo////AAACAAAAAADn//7/AAACAAAAAADm//7/AAACAAAAAADm//3/AAACAAAAAADl//z/AAACAAAAAADl//3/AAACAAAAAADm////AAACAAAAAADn////AAACAAAAAADn/wAAAAACAAAAAADm/wAAAAACAAAAAADl//7/AAACAAAAAADl////AAACAAAAAADl/wAAAAACAAAAAAD7////AAADAAAAAAD8////AAAEAAAAAAD5//7/AAADAAAAAAD6//7/AAAEAAAAAAATAPv/AAABAAAAAAAUAPv/AAABAAAAAAAUAPr/AAABAAAAAAAVAPr/AAABAAAAAAAVAPn/AAABAAAAAAAWAPj/AAABAAAAAAAWAPn/AAABAAAAAAAXAPj/AAABAAAAAAAXAPf/AAABAAAAAAAYAPf/AAABAAAAAAAYAPb/AAABAAAAAAAZAPb/AAABAAAAAAAaAPb/AAABAAAAAAAbAPb/AAABAAAAAAAcAPb/AAABAAAAAAAdAPb/AAABAAAAAAA=")
+tile_map_data = PackedByteArray("AAAAAAIAAAABAAAAAAABAAIAAAABAAAAAAACAAIAAAABAAAAAAADAAIAAAABAAAAAAAEAAIAAAABAAAAAAAFAAIAAAABAAAAAAD//wIAAAABAAAAAAD+/wIAAAABAAAAAAADAP//AAABAAAAAAADAP7/AAABAAAAAAD+/wEAAAABAAAAAAD8/wIAAAABAAAAAAD8/wEAAAABAAAAAAD8/wAAAAABAAAAAAD7/wIAAAABAAAAAAD6/wIAAAABAAAAAAD6/wEAAAABAAAAAAD6/wAAAAABAAAAAAD6////AAABAAAAAAD5/wIAAAABAAAAAAD4/wIAAAABAAAAAAD4/wEAAAABAAAAAAD4/wAAAAABAAAAAAD4////AAABAAAAAAD4//7/AAABAAAAAAD3/wIAAAABAAAAAAD2/wIAAAABAAAAAAAEAP//AAABAAAAAAAFAP//AAABAAAAAAAGAAIAAAABAAAAAAAHAAIAAAABAAAAAAAIAAIAAAABAAAAAAAJAAIAAAABAAAAAAAJAP//AAABAAAAAAAJAP7/AAABAAAAAAAJAP3/AAABAAAAAAAJAPz/AAABAAAAAAAJAPv/AAABAAAAAAAJAPr/AAABAAAAAAAJAPn/AAABAAAAAAAIAPn/AAABAAAAAAAHAPn/AAABAAAAAAAGAPn/AAABAAAAAAAFAPn/AAABAAAAAAAEAPn/AAABAAAAAAAEAPj/AAABAAAAAAADAPj/AAABAAAAAAADAPn/AAABAAAAAAAFAP7/AAABAAAAAAAFAP3/AAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAD//wUAAAABAAAAAAD//wYAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAD//wkAAAABAAAAAAD+/wkAAAABAAAAAAD9/wkAAAABAAAAAAD8/wkAAAABAAAAAAD7/wkAAAABAAAAAAD6/wkAAAABAAAAAAD5/wkAAAABAAAAAAD4/wkAAAABAAAAAAD3/wkAAAABAAAAAAD2/wkAAAABAAAAAAD1/wkAAAABAAAAAAD0/wkAAAABAAAAAADz/wkAAAABAAAAAADy/wkAAAABAAAAAADx/wkAAAABAAAAAADw/wkAAAABAAAAAADv/wkAAAABAAAAAADu/wkAAAABAAAAAADt/wkAAAABAAAAAADs/wkAAAABAAAAAADr/wkAAAABAAAAAADq/wkAAAABAAAAAADp/wkAAAABAAAAAADp/wgAAAABAAAAAADp/wcAAAABAAAAAADp/wYAAAABAAAAAADp/wUAAAABAAAAAADp/wQAAAABAAAAAADp/wMAAAABAAAAAADp/wIAAAABAAAAAADp/wEAAAABAAAAAADq/wUAAAABAAAAAADr/wUAAAABAAAAAADs/wYAAAABAAAAAADt/wIAAAABAAAAAADu/wIAAAABAAAAAADx/wAAAAABAAAAAADy/wAAAAABAAAAAAAKAAIAAAABAAAAAAALAAIAAAABAAAAAAAMAAIAAAABAAAAAAANAAIAAAABAAAAAAAKAP//AAABAAAAAAALAP//AAABAAAAAAAOAAIAAAABAAAAAAAPAAIAAAABAAAAAAAQAAIAAAABAAAAAAAPAP//AAABAAAAAAAQAP//AAABAAAAAAARAAIAAAABAAAAAAARAAEAAAABAAAAAAARAAAAAAABAAAAAAARAP//AAABAAAAAAARAP7/AAABAAAAAAARAP3/AAABAAAAAAASAP3/AAABAAAAAAASAPz/AAABAAAAAAATAPz/AAABAAAAAAANAAEAAAACAAAAABAOAAAAAAACAAAAABAOAAEAAAABAAAAAAAPAAEAAAABAAAAAAAQAAEAAAABAAAAAAAQAAAAAAABAAAAAAAPAAAAAAABAAAAAAAMAP//AAACAAAAAFDp/wAAAAACAAAAAADo/wAAAAACAAAAAADo////AAACAAAAAADn//7/AAACAAAAAADm//7/AAACAAAAAADm//3/AAACAAAAAADl//z/AAACAAAAAADl//3/AAACAAAAAADm////AAACAAAAAADn////AAACAAAAAADn/wAAAAACAAAAAADm/wAAAAACAAAAAADl//7/AAACAAAAAADl////AAACAAAAAADl/wAAAAACAAAAAAD7////AAADAAAAAAD8////AAAEAAAAAAD5//7/AAADAAAAAAD6//7/AAAEAAAAAAATAPv/AAABAAAAAAAUAPv/AAABAAAAAAAUAPr/AAABAAAAAAAVAPr/AAABAAAAAAAVAPn/AAABAAAAAAAWAPj/AAABAAAAAAAWAPn/AAABAAAAAAAXAPj/AAABAAAAAAAXAPf/AAABAAAAAAAYAPf/AAABAAAAAAAYAPb/AAABAAAAAAAZAPb/AAABAAAAAAAaAPb/AAABAAAAAAAbAPb/AAABAAAAAAAcAPb/AAABAAAAAAAdAPb/AAABAAAAAAAbAPT/AAABAAAAAAAbAPX/AAABAAAAAAAbAPP/AAABAAAAAAAbAPL/AAABAAAAAAA=")
 tile_set = SubResource("TileSet_h2pyc")
 
 [node name="Upgrades" type="Node2D" parent="."]
 position = Vector2(-2816, 0)
 
-[node name="Upgrade3" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(5248, -1920)
-collect_id = 1
-texture = ExtResource("10_sx6du")
-upgrade = ExtResource("11_nucsb")
-
-[node name="Upgrade4" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(10368, -2688)
-collect_id = 2
-texture = ExtResource("10_sx6du")
-upgrade = ExtResource("11_nucsb")
-
 [node name="Upgrade" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(3200, 384)
-texture = ExtResource("8_qbos2")
-upgrade = ExtResource("10_he51w")
-
-[node name="Upgrade9" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(3200, 128)
-texture = ExtResource("8_qbos2")
-upgrade = ExtResource("10_he51w")
-
-[node name="Upgrade10" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(3200, -256)
-texture = ExtResource("8_qbos2")
-upgrade = ExtResource("10_he51w")
-
-[node name="Upgrade11" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(2944, 0)
-texture = ExtResource("8_qbos2")
-upgrade = ExtResource("10_he51w")
-
-[node name="Upgrade12" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(2816, -768)
-texture = ExtResource("8_qbos2")
-upgrade = ExtResource("10_he51w")
-
-[node name="Upgrade13" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(2816, -384)
-texture = ExtResource("8_qbos2")
-upgrade = ExtResource("10_he51w")
-
-[node name="Upgrade14" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(2688, 128)
-texture = ExtResource("8_qbos2")
-upgrade = ExtResource("10_he51w")
+position = Vector2(3456, -128)
+texture = ExtResource("4_kpeau")
+upgrade = ExtResource("5_laitv")
 
 [node name="Upgrade2" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(-256, 1664)
-collect_id = 9
-texture = ExtResource("10_qkocq")
-upgrade = ExtResource("13_x2slc")
-
-[node name="Upgrade5" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(-768, 1920)
-collect_id = 10
-texture = ExtResource("10_qkocq")
-upgrade = ExtResource("13_x2slc")
-
-[node name="Upgrade6" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(-256, 1920)
-collect_id = 41
-texture = ExtResource("12_y3ine")
-upgrade = ExtResource("9_dsdtt")
-
-[node name="Upgrade7" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(1152, 2176)
-collect_id = 42
-texture = ExtResource("12_y3ine")
-upgrade = ExtResource("9_dsdtt")
-
-[node name="Upgrade8" parent="Upgrades" instance=ExtResource("4_2rfxt")]
-position = Vector2(-3840, -1024)
-collect_id = 64
-texture = ExtResource("12_4i0qw")
+position = Vector2(2432, -640)
+texture = ExtResource("4_kpeau")
 upgrade = ExtResource("13_h22u2")
 
 [node name="Crates" type="Node2D" parent="."]
@@ -243,6 +172,7 @@ reaction_time = 0.0
 max_hp = 3.0
 
 [node name="Barrel" parent="Node2D/Joe" instance=ExtResource("10_he51w")]
+damage = 1.0
 
 [node name="Joe2" parent="Node2D" instance=ExtResource("4_mr01q")]
 material = SubResource("ShaderMaterial_ev4gw")
@@ -258,7 +188,7 @@ reaction_time = 0.2
 max_hp = 3.0
 
 [node name="Shotgun" parent="Node2D/Joe3" instance=ExtResource("13_x2slc")]
-damage = 3
+damage = 1.0
 
 [node name="Joe5" parent="Node2D" instance=ExtResource("4_mr01q")]
 material = SubResource("ShaderMaterial_veg2n")
@@ -268,6 +198,7 @@ reaction_time = 2.0
 max_hp = 3.0
 
 [node name="Barrel" parent="Node2D/Joe5" instance=ExtResource("10_he51w")]
+damage = 1.0
 
 [node name="Joe4" parent="Node2D" instance=ExtResource("4_mr01q")]
 material = SubResource("ShaderMaterial_iri0s")
@@ -276,7 +207,7 @@ reaction_time = 0.2
 max_hp = 3.0
 
 [node name="Shotgun" parent="Node2D/Joe4" instance=ExtResource("13_x2slc")]
-damage = 3
+damage = 1.0
 
 [node name="Bill" parent="Node2D" instance=ExtResource("18_dlmji")]
 position = Vector2(1920, 128)

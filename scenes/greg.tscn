@@ -646,6 +646,7 @@ floor_constant_speed = true
 floor_snap_length = 50.0
 safe_margin = 2.0
 script = ExtResource("1_0qswn")
+max_hp = 20.0
 death_texture = ExtResource("2_0v7pw")
 
 [node name="CoyoteTime" type="Timer" parent="."]
@@ -769,6 +770,7 @@ texture = SubResource("AtlasTexture_b51h5")
 
 [node name="Barrel" parent="Sprites/Gun/Sprite2D" instance=ExtResource("11_mlvyw")]
 position = Vector2(260.434, -16.7709)
+damage = 1.0
 
 [node name="BlinkTimer" type="Timer" parent="."]
 wait_time = 0.1

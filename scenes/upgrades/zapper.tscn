@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cvd53d4v2bua5"]
+[gd_scene load_steps=32 format=3 uid="uid://cvd53d4v2bua5"]
 
 [ext_resource type="Script" path="res://scripts/upgrades/zapper.gd" id="1_h0xc5"]
 [ext_resource type="Texture2D" uid="uid://dfnxefwyfv0m7" path="res://assets/upgrades/zapper/zapper.png" id="2_iaqy3"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://b2ldfavo870af" path="res://assets/upgrades/zapper/zap.png" id="5_wo8tx"]
 [ext_resource type="Script" path="res://scripts/spring.gd" id="6_4tuqj"]
 [ext_resource type="AudioStream" uid="uid://c1x63yhiroiby" path="res://assets/upgrades/zapper/zap.mp3" id="6_3858p"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dkux0lc2qx6rg" path="res://scenes/upgrades/charging_animtree.tres" id="7_qtrob"]
 [ext_resource type="Texture2D" uid="uid://yafjrgwl6mhs" path="res://assets/upgrades/zapper/zapped.png" id="8_5j2eb"]
 [ext_resource type="AudioStream" uid="uid://c1pldc1ut5v1q" path="res://assets/upgrades/zapper/static.mp3" id="10_r4str"]
 
@@ -210,6 +211,18 @@ tracks/11/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/12/type = "value"
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/path = NodePath(".:visible")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_k5mgd"]
 resource_name = "charging"
@@ -385,6 +398,18 @@ tracks/7/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.3, 0.7, 1)
 }
 tracks/7/use_blend = true
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath(".:visible")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_rvdtp"]
 resource_name = "shoot"
@@ -517,70 +542,6 @@ _data = {
 "shoot": SubResource("Animation_rvdtp")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_68h4x"]
-animation = &"RESET"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_op5a7"]
-animation = &"charging"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bbn3v"]
-animation = &"deploy"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ln15p"]
-animation = &"charging"
-play_mode = 1
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7jhyo"]
-animation = &"shoot"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g3o8x"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_extbo"]
-switch_mode = 2
-advance_mode = 2
-advance_expression = "shooting"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sfl24"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2keca"]
-switch_mode = 1
-advance_mode = 2
-advance_expression = "not shooting"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g155i"]
-advance_mode = 2
-advance_expression = "not shooting"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1h4ui"]
-switch_mode = 2
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_83uu3"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3gbps"]
-advance_mode = 2
-advance_condition = &"deploy"
-
-[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_jy0cx"]
-states/RESET/node = SubResource("AnimationNodeAnimation_68h4x")
-states/RESET/position = Vector2(391, 167)
-states/Start/position = Vector2(192, 154)
-states/charging/node = SubResource("AnimationNodeAnimation_op5a7")
-states/charging/position = Vector2(561, 35)
-states/deploy/node = SubResource("AnimationNodeAnimation_bbn3v")
-states/deploy/position = Vector2(307, 30)
-states/discharging/node = SubResource("AnimationNodeAnimation_ln15p")
-states/discharging/position = Vector2(573, 201)
-states/shoot/node = SubResource("AnimationNodeAnimation_7jhyo")
-states/shoot/position = Vector2(718, 133)
-transitions = ["deploy", "RESET", SubResource("AnimationNodeStateMachineTransition_g3o8x"), "RESET", "charging", SubResource("AnimationNodeStateMachineTransition_extbo"), "charging", "shoot", SubResource("AnimationNodeStateMachineTransition_sfl24"), "shoot", "discharging", SubResource("AnimationNodeStateMachineTransition_2keca"), "charging", "discharging", SubResource("AnimationNodeStateMachineTransition_g155i"), "discharging", "RESET", SubResource("AnimationNodeStateMachineTransition_1h4ui"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_83uu3"), "Start", "deploy", SubResource("AnimationNodeStateMachineTransition_3gbps")]
-graph_offset = Vector2(56, -29)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_c816d"]
 atlas = ExtResource("5_wo8tx")
 region = Rect2(0, 0, 110, 357)
@@ -618,7 +579,6 @@ animations = [{
 use_parent_material = true
 script = ExtResource("1_h0xc5")
 height = 30.0
-damage = 2
 
 [node name="Electricity" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -662,7 +622,7 @@ libraries = {
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeStateMachine_jy0cx")
+tree_root = ExtResource("7_qtrob")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/deploy = false

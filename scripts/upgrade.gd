@@ -1,12 +1,10 @@
 extends Area2D
 
-@export var collect_id: int
 @export var texture: Texture2D
 @export var upgrade: PackedScene
 var going_to_player = false
 
 func _ready():
-	if collect_id in Global.collected_upgrades: queue_free()
 	$Sprite2D.texture = texture
 
 func _process(delta):

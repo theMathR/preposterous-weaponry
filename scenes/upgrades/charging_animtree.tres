@@ -1,0 +1,65 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=14 format=3 uid="uid://dkux0lc2qx6rg"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_68h4x"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_op5a7"]
+animation = &"charging"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bbn3v"]
+animation = &"deploy"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ln15p"]
+animation = &"charging"
+play_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7jhyo"]
+animation = &"shoot"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g3o8x"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_extbo"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "shooting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sfl24"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2keca"]
+switch_mode = 1
+advance_mode = 2
+advance_expression = "not shooting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_g155i"]
+advance_mode = 2
+advance_expression = "not shooting"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1h4ui"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_83uu3"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3gbps"]
+advance_mode = 2
+advance_condition = &"deploy"
+
+[resource]
+states/RESET/node = SubResource("AnimationNodeAnimation_68h4x")
+states/RESET/position = Vector2(391, 167)
+states/Start/position = Vector2(192, 154)
+states/charging/node = SubResource("AnimationNodeAnimation_op5a7")
+states/charging/position = Vector2(561, 35)
+states/deploy/node = SubResource("AnimationNodeAnimation_bbn3v")
+states/deploy/position = Vector2(307, 30)
+states/discharging/node = SubResource("AnimationNodeAnimation_ln15p")
+states/discharging/position = Vector2(573, 201)
+states/shoot/node = SubResource("AnimationNodeAnimation_7jhyo")
+states/shoot/position = Vector2(718, 133)
+transitions = ["deploy", "RESET", SubResource("AnimationNodeStateMachineTransition_g3o8x"), "RESET", "charging", SubResource("AnimationNodeStateMachineTransition_extbo"), "charging", "shoot", SubResource("AnimationNodeStateMachineTransition_sfl24"), "shoot", "discharging", SubResource("AnimationNodeStateMachineTransition_2keca"), "charging", "discharging", SubResource("AnimationNodeStateMachineTransition_g155i"), "discharging", "RESET", SubResource("AnimationNodeStateMachineTransition_1h4ui"), "Start", "RESET", SubResource("AnimationNodeStateMachineTransition_83uu3"), "Start", "deploy", SubResource("AnimationNodeStateMachineTransition_3gbps")]
+graph_offset = Vector2(56, -29)

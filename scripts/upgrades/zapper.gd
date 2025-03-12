@@ -1,7 +1,5 @@
 extends GunPart
 
-var shooting = false
-
 func hit_target():
 	var targets = $Area2D.get_overlapping_bodies().filter(func (x): return is_instance_of(x, Damageable))
 	
